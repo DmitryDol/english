@@ -27,6 +27,7 @@
 - `ДолжиковДП_Англ2.md` … `ДолжиковДП_Англ4.md` — статьи по специальности №1–3, пока не созданы.
 - `articles/` — оригиналы выбранных статей (`articleN_original.pdf` и извлечённый текст `articleN_original.txt`). Каталога пока нет: создай его, когда возьмёшься за первую статью.
 - `pyproject.toml`, `uv.lock`, `.python-version` — окружение uv на Python 3.14. Единственная зависимость — `pdfplumber` для извлечения текста из PDF. `src/english/` пока заглушка.
+- `.claude/skills/avoid-ai-writing/` — сторонний скилл [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) (v3.36.0, MIT) для поиска и правки признаков AI-текста в английской прозе. Как применять — в разделе «Скилл avoid-ai-writing». Файлы скилла не редактируй; его внутренний `CLAUDE.md` предназначен для разработчиков скилла и к этому проекту не относится.
 
 Ссылки вида `file:///C:/projects/ssau/english/...` в `AGENTS.md` и `README.md` — локальные пути Windows. В новых текстах ссылайся на файлы относительными путями.
 
@@ -161,11 +162,20 @@
 - Академично, но без штампов, по которым узнаётся сгенерированный текст: hype-слов (*unprecedented, revolutionary, impressive, slashing, game-changer*), обилия длинных тире, конструкций вида *"it is not X; it is Y"*, цепочек из трёх эпитетов подряд.
 - Клише методички — не штампы, а обязательный элемент задания: сохраняй их дословно.
 
+### Скилл avoid-ai-writing
+
+- Применяй его к английским текстам TASK 1–3: для проверки готового текста и для подготовки humanized-версий. Вызов — `/avoid-ai-writing` или через инструмент Skill.
+- Не применяй его к русскому переводу (правила скилла рассчитаны только на английский) и к цитатам в словаре (это дословные фрагменты статьи).
+- Режимы: `detect` — только найти замечания, ничего не меняя; `edit` — точечно править файл. Для `edit` явно ограничь область: «только TASK 2 и TASK 3 в файле X». Профиль контекста — `--context technical-blog`.
+- Клише методички для скилла — защищённый текст: перечисли их в запросе и не давай менять. Скилл и детектор считают признаками AI-текста *In conclusion…*, *Let's begin by…*, *Let's consider this in more detail* и другие обязательные фразы. Для этой работы такие замечания — ложные срабатывания: оставь фразы как есть и укажи их в отчёте как намеренные. То же с замечанием о жирном шрифте (`formatting`) в TASK 1: жирные подписи полей — часть шаблона.
+- Правило скилла о верности источнику совпадает с нашим правилом достоверности: при переписывании не добавляй цифры, факты и оценки, которых нет в статье.
+
 ### Humanized-версии
 
 - `ДолжиковДП_АнглN_humanized.md` / `.docx` создаются только по просьбе пользователя. Это копия основного файла, в которой TASK 2 и TASK 3 переписаны проще и естественнее, а к их заголовкам добавлена пометка `(Humanized / De-AI Version)`.
 - Перевод, словарь и TASK 1 в обеих версиях одинаковы: правишь одну — синхронизируй вторую.
 - «Очеловечивание» касается текста вокруг речевых формул. Клише TASK 2 и обязательные фразы TASK 3 остаются; структура, тайминг и объём тоже.
+- Порядок работы: скопируй основной файл в `_humanized.md`, перепиши TASK 2 и TASK 3 скиллом `avoid-ai-writing` в режиме `edit` (правила — в разделе выше), затем заново прогони подсчёт слов, проверку клише и детектор.
 
 ## Алгоритм для новой статьи (N = 2, 3, 4)
 
@@ -216,6 +226,11 @@ uv run python -c "import re, sys, pathlib; t = pathlib.Path(sys.argv[1]).read_te
 uv run python -c "import sys, pathlib; t = pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'); [print('MISSING:', p) for p in ['give a review of is taken from', 'The headline of the article is', 'written by', 'The topic of the article is', 'The key issue of the article is', 'is devoted to the problem', 'may be divided into several logically connected parts', 'The author starts by telling the reader', 'At the beginning of the article the author', 'In conclusion the author', 'The author concludes by saying'] if p not in t]" ДолжиковДП_Англ2.md
 ```
 
+Проверить TASK 1–3 детектором скилла avoid-ai-writing (нужен Node.js; команда ничего не меняет и печатает JSON — смотри поля `score`, `label`, `issues`):
+```bash
+uv run python -c "import sys, pathlib; sys.stdout.reconfigure(encoding='utf-8'); t = pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'); print(t[t.index('### TASK 1'):])" ДолжиковДП_Англ2.md | node .claude/skills/avoid-ai-writing/bin/avoid-ai-writing.js --context technical --source-mode rendered-markdown
+```
+
 Собрать DOCX и проверить результат (DOCX вручную не правь — только пересобирай из `.md`):
 ```bash
 pandoc ДолжиковДП_Англ2.md -o ДолжиковДП_Англ2.docx
@@ -230,6 +245,7 @@ pandoc ДолжиковДП_Англ2.docx -t plain | head -40
 - Данные Step 1 сверены с оригиналом, цифры в TASK 1–3 совпадают со статьёй.
 - TASK 2: 200–350 слов, все клише на месте.
 - TASK 3: 650–850 слов, числа в Timing Overview совпадают с фактическим подсчётом, нет интерактивных ремарок.
+- Детектор avoid-ai-writing по TASK 1–3: в `issues` остались только обязательные клише методички и замечание о жирных подписях полей TASK 1.
 - DOCX пересобран из актуального `.md` и читается через `pandoc -t plain`.
 - `README.md` и `AGENTS.md` обновлены.
 
