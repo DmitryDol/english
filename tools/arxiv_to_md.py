@@ -1,10 +1,12 @@
-"""Скачивает HTML-версию статьи arXiv и конвертирует её в Markdown.
+r"""Скачивает HTML-версию статьи arXiv и конвертирует её в Markdown.
 
 Использование:
-    uv run python tools/arxiv_to_md.py 2403.14403v2 articles/article2_original.md
+    uv run python tools/arxiv_to_md.py 2403.14403v2 articles/article2_original.md --acl-citations
     uv run python tools/arxiv_to_md.py saved_page.html articles/article2_original.md
 
 Указывай arXiv-номер с версией (v1, v2, ...), чтобы текст совпадал с PDF.
+--acl-citations нужен для статей в стиле ACL (ACL, NAACL, EMNLP): там \cite даёт
+ссылку в скобках «(Brown et al., 2020)», а arXiv выводит её как «Brown et al. (2020)».
 Нужен pandoc в PATH.
 """
 
@@ -48,11 +50,26 @@ def unwrap_svg_text(html: str) -> str:
     return re.sub(r"<svg\b.*?</svg>", replace, html, flags=re.S)
 
 
+def parenthesize_citations(html: str) -> str:
+    # В стиле ACL \cite — ссылка в скобках: «Brown et al. (2020); OpenAI (2023)» → «(Brown et al., 2020; OpenAI, 2023)».
+    def fix_link(match: re.Match) -> str:
+        return re.sub(r"(\S) \(([^()]+)\)(</a>)$", r"\1, \2\3", match.group(0))
+
+    def replace(match: re.Match) -> str:
+        body = re.sub(r"<a\b[^>]*>[^<]*</a>", fix_link, match.group(2))
+        return f"{match.group(1)}({body})</cite>"
+
+    return re.sub(r'(<cite class="ltx_cite ltx_citemacro_cite">)(.*?)</cite>', replace, html, flags=re.S)
+
+
 def main() -> None:
-    if len(sys.argv) != 3:
+    args = [arg for arg in sys.argv[1:] if arg != "--acl-citations"]
+    if len(args) != 2:
         sys.exit(__doc__)
-    source, output = sys.argv[1], pathlib.Path(sys.argv[2])
+    source, output = args[0], pathlib.Path(args[1])
     article = unwrap_svg_text(extract_article(load_html(source)))
+    if "--acl-citations" in sys.argv:
+        article = parenthesize_citations(article)
     markdown = subprocess.run(
         # Таблицы с объединёнными ячейками в Markdown не помещаются: GFM оставляет их HTML-таблицами.
         ["pandoc", "-f", "html", "-t", "gfm", "--wrap=none", f"--lua-filter={LUA_FILTER}"],
@@ -64,6 +81,8 @@ def main() -> None:
     ).stdout
     # Невидимое умножение из MathML pandoc записывает как \hspace{0pt}: в формулах это только шум.
     markdown = markdown.replace("\\hspace{0pt}", "")
+    # Неразрывные и широкие пробелы («et al.» и др.) заменяем обычными, иначе цитату не найти поиском.
+    markdown = re.sub("[      ]", " ", markdown)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(markdown, encoding="utf-8")
     print(f"{output}: {len(''.join(markdown.split()))} chars without spaces")

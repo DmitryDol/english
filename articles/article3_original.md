@@ -1,6 +1,6 @@
 # Self-rag: Learning to Retrieve, Generate, and Critique through Self-Reflection
 
-Akari Asai<sup>†</sup>    Zeqiu Wu<sup>†</sup>    Yizhong Wang<sup>†§</sup>    Avirup Sil<sup>‡</sup>    Hannaneh Hajishirzi<sup>†§</sup> Affiliation: <sup>†</sup>University of Washington <sup>§</sup>Allen Institute for AI <sup>‡</sup>IBM Research AI Affiliation: {akari,zeqiuwu,yizhongw,hannaneh}@cs.washington.edu, avi@us.ibm.com
+Akari Asai<sup>†</sup>    Zeqiu Wu<sup>†</sup>    Yizhong Wang<sup>†§</sup>    Avirup Sil<sup>‡</sup>    Hannaneh Hajishirzi<sup>†§</sup> Affiliation: <sup>†</sup>University of Washington <sup>§</sup>Allen Institute for AI <sup>‡</sup>IBM Research AI Affiliation: {akari,zeqiuwu,yizhongw,hannaneh}@cs.washington.edu, avi@us.ibm.com
 
 ###### Abstract
 
@@ -17,6 +17,8 @@ State-of-the-art LLMs continue to struggle with factual errors (Mallen et al., 2
 Self-Rag trains an arbitrary LM to generate text with reflection tokens by unifying them as the next token prediction from the expanded model vocabulary. We train our generator LM on a diverse collection of text interleaved with reflection tokens and retrieved passages. Reflection tokens, inspired by reward models used in reinforcement learning (Ziegler et al., 2019; Ouyang et al., 2022), are inserted offline into the original corpus by a trained critic model. This eliminates the need to host a critic model during training, reducing overhead. The critic model, in part, is supervised on a dataset of input, output, and corresponding reflection tokens collected by prompting a propriety LM (i.e., GPT-4; OpenAI 2023). While we draw inspiration from studies that use control tokens to start and guide text generation (Lu et al., 2022; Keskar et al., 2019), our trained LM uses critique tokens to assess its own predictions after each generated segment as an integral part of the generation output.
 
 Self-Rag further enables a customizable decoding algorithm to satisfy hard or soft constraints, which are defined by reflection token predictions. In particular, our inference-time algorithm enables us to (1) flexibly adjust retrieval frequency for different downstream applications and (2) customize models’ behaviors to user preferences by leveraging reflection tokens through segment-level beam search using the weighted linear sum of the reflection token probabilities as segment score.
+
+![Figure 1](article3_figures/figure1.png)
 
 Figure 1: Overview of Self-Rag. Self-Rag learns to retrieve, critique, and generate text passages to enhance overall generation quality, factuality, and verifiability.
 
@@ -55,19 +57,19 @@ Table 1: Four types of reflection tokens used in Self-Rag. Each type uses severa
 
 4: if Retrieve == Yes then
 
-5:   Retrieve relevant text passages $\mathbf{D}$ using $\mathcal{R}$ given $(x,y_{t - 1})$ $\vartriangleright$ Retrieve
+5:   Retrieve relevant text passages $\mathbf{D}$ using $\mathcal{R}$ given $(x,y_{t - 1})$ $\vartriangleright$ Retrieve
 
-6:   $\mathcal{M}$ predicts IsRel given $x,d$ and $y_{t}$ given $x,d,y_{\phantom{} < t}$ for each $d \in \mathbf{D}$ $\vartriangleright$ Generate
+6:   $\mathcal{M}$ predicts IsRel given $x,d$ and $y_{t}$ given $x,d,y_{\phantom{} < t}$ for each $d \in \mathbf{D}$ $\vartriangleright$ Generate
 
-7:   $\mathcal{M}$ predicts IsSup and IsUse given $x,y_{t},d$ for each $d \in \mathbf{D}$ $\vartriangleright$ Critique
+7:   $\mathcal{M}$ predicts IsSup and IsUse given $x,y_{t},d$ for each $d \in \mathbf{D}$ $\vartriangleright$ Critique
 
-8:   Rank $y_{t}$ based on IsRel , IsSup , IsUse $\vartriangleright$ Detailed in Section 3.3
+8:   Rank $y_{t}$ based on IsRel , IsSup , IsUse $\vartriangleright$ Detailed in Section 3.3
 
 9: else if Retrieve == No then
 
-10:   $\mathcal{M}_{gen}$ predicts $y_{t}$ given $x$ $\vartriangleright$ Generate
+10:   $\mathcal{M}_{gen}$ predicts $y_{t}$ given $x$ $\vartriangleright$ Generate
 
-11:   $\mathcal{M}_{gen}$ predicts IsUse given $x,y_{t}$$\vartriangleright$ Critique
+11:   $\mathcal{M}_{gen}$ predicts IsUse given $x,y_{t}$$\vartriangleright$ Critique
 
 Algorithm 1 Self-Rag Inference
 
@@ -92,6 +94,8 @@ After we collect training data $\mathcal{D}_{critic}$, we initialize $\mathcal{C
 |     | $$\max\limits_{\mathcal{C}}{\mathbb{E}}_{{({(x,y)},r)} \sim \mathcal{D}_{critic}}\log p_{\mathcal{C}}{(r|x,y)},{\ r\text{~for reflection tokens.~}}$$ |     | \(1\) |
 
 Though the initial model can be any pre-trained LM, we use the same one as the generator LM (i.e., Llama 2-7B; Touvron et al. 2023) for $\mathcal{C}$ initialization. The critic achieves a higher than 90% agreement with GPT-4-based predictions on most reflection token categories (Appendix Table 5).
+
+![Figure 2](article3_figures/figure2.png)
 
 Figure 2: Self-Rag training examples. The left example does not require retrieval while the right one requires retrieval; thus, passages are inserted. More examples are in Appendix Table 4.
 
@@ -213,6 +217,8 @@ Comparison against baselines with retrieval. As shown in Tables 2 (bottom), our 
 
 \(c\) Retrieval
 
+![Figure 3](article3_figures/figure3.png)
+
 Figure 3: Analysis on Self-Rag: (a) Ablation studies for key components of Self-Rag training and inference based on our 7B model. (b) Effects of soft weights on ASQA citation precision and Mauve (fluency). (c) Retrieval frequency and normalized accuracy on PubHealth and PopQA.
 
 ### 5.2 Analysis
@@ -244,6 +250,8 @@ Human evaluations. We conduct small human evaluations on Self-Rag outputs, as we
 | IsSup | 90.0 | 85.0 |
 
 \(d\) Human evaluation on PopQA and Bio generation.
+
+![Figure 4](article3_figures/figure4.png)
 
 Figure 4: Training scale and Human analysis: (a) (b) (c) Training scale analysis shows the effect of the training data scale on PopQA, PubHealth and ASQA (citation precision), respectively. (d) Human analysis on Self-Rag outputs as well as reflection tokens.
 
@@ -360,9 +368,9 @@ Algorithm 2 provides a high-level overview of our training.
 
 4: for ${(x,y)} \in {(X^{sample},Y^{sample})}$ do $\vartriangleright$ Data collections for $\mathcal{C}$
 
-5:   Prompt GPT-4 to collect a reflection token $r$ for $(x,y)$
+5:   Prompt GPT-4 to collect a reflection token $r$ for $(x,y)$
 
-6:   Add $\{{(x,y,r)}\}$ to $\mathcal{D}_{critic}$
+6:   Add $\{{(x,y,r)}\}$ to $\mathcal{D}_{critic}$
 
 7: Update $\mathcal{C}$ with next token prediction loss $\vartriangleright$ Critic learning; Eq. 1
 
@@ -370,9 +378,9 @@ Algorithm 2 provides a high-level overview of our training.
 
 9: for ${(x,y)} \in {(X,Y)}$ do $\vartriangleright$ Data collection for $\mathcal{M}$ with $\mathcal{D}_{critic}$
 
-10:   Run $\mathcal{C}$ to predict $r$ given $(x,y)$
+10:   Run $\mathcal{C}$ to predict $r$ given $(x,y)$
 
-11:   Add $(x,y,r)$ to $\mathcal{D}_{gen}$
+11:   Add $(x,y,r)$ to $\mathcal{D}_{gen}$
 
 12: Update $\mathcal{M}$ on $\mathcal{D}_{gen}$ with next token prediction loss $\vartriangleright$ Generator LM learning; Eq. 2
 
@@ -407,6 +415,8 @@ We evaluate the accuracy of reward predictions by splitting GPT-4 generated feed
 | Llama2-7B | 93.8     | 93.5  | 80.2  | 73.5  |
 | FLAN-3B   | 85.6     | 73.1  | 82.0  | 72.1  |
 
+![Figure 5](article3_figures/figure5.png)
+
 Figure 5: Reward prediction accuracy using GPT-4 predictions as ground-truth predictions.
 
 ##### Details of $\mathcal{M}$ data creation.
@@ -417,25 +427,25 @@ Here, we provide detailed data creation procedures. Algorithm 3 summarizes the p
 
 2: for ${(x,y)} \in {\{{X,Y}\}}$ do
 
-3:   Given $(x,y)$ $\mathcal{C}$ predicts Retrieve
+3:   Given $(x,y)$ $\mathcal{C}$ predicts Retrieve
 
-4:   if Retrieve is predicted then
+4:   if Retrieve is predicted then
 
-5:    Retrieve relevant passages $\mathbf{D}$ using $\mathcal{R}$ given $(x,y)$ $\vartriangleright$ Retrieve passages
+5:    Retrieve relevant passages $\mathbf{D}$ using $\mathcal{R}$ given $(x,y)$ $\vartriangleright$ Retrieve passages
 
-6:    for $d \in \mathbf{D}$ do
+6:    for $d \in \mathbf{D}$ do
 
-7:      $\mathcal{C}$ predicts IsRel for each $d$ $\vartriangleright$ Predict relevance of passages
+7:      $\mathcal{C}$ predicts IsRel for each $d$ $\vartriangleright$ Predict relevance of passages
 
-8:      $\mathcal{C}$ predicts IsSup for each $(y,d)$ $\vartriangleright$ Predict supports of outputs    
+8:      $\mathcal{C}$ predicts IsSup for each $(y,d)$ $\vartriangleright$ Predict supports of outputs    
 
-9:    $\mathcal{C}$ predicts IsUse for each $d$ $\vartriangleright$ Predict overall utility ($t = \mathcal{T}$ only)
+9:    $\mathcal{C}$ predicts IsUse for each $d$ $\vartriangleright$ Predict overall utility ($t = \mathcal{T}$ only)
 
-10:    Sample $d$
+10:    Sample $d$
 
-11:   else if Retrieve is not predicted then
+11:   else if Retrieve is not predicted then
 
-12:    $\mathcal{C}$ predicts IsUse given $x,y$   Add augmented $(x,y,d,r)$ to $\mathcal{D}_{gen}$
+12:    $\mathcal{C}$ predicts IsUse given $x,y$   Add augmented $(x,y,d,r)$ to $\mathcal{D}_{gen}$
 
 Algorithm 3 $\mathcal{M}_{gen}$ Data creation
 
