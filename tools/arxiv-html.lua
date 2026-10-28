@@ -52,11 +52,19 @@ local cleanup = {
   end,
 
   -- Маркеры «•» у пунктов списков и пустые якоря удаляем, остальные <span> раскрываем.
+  -- Полужирный и курсив LaTeXML задаёт классами: сохраняем их, в таблицах так выделены лучшие результаты.
   Span = function(el)
     if el.classes:includes('ltx_tag_item') then
       return {}
     end
-    return el.content
+    local content = el.content
+    if #content > 0 and el.classes:includes('ltx_font_italic') then
+      content = { pandoc.Emph(content) }
+    end
+    if #content > 0 and el.classes:includes('ltx_font_bold') then
+      content = { pandoc.Strong(content) }
+    end
+    return content
   end,
 
   -- После удаления маркера «•» у пункта списка остаётся пустая строка: убираем её.

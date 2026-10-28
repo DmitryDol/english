@@ -4,7 +4,7 @@ Shi-Qi Yan [^1] Affiliation: National Engineering Research Center of Speech and 
 
 ###### Abstract
 
-Large language models (LLMs) inevitably exhibit hallucinations since the accuracy of generated texts cannot be secured solely by the parametric knowledge they encapsulate. Although retrieval-augmented generation (RAG) is a practicable complement to LLMs, it relies heavily on the relevance of retrieved documents, raising concerns about how the model behaves if retrieval goes wrong. To this end, we propose the Corrective Retrieval Augmented Generation (CRAG) to improve the robustness of generation. Specifically, a lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents for a query, returning a confidence degree based on which different knowledge retrieval actions can be triggered. Since retrieval from static and limited corpora can only return sub-optimal documents, large-scale web searches are utilized as an extension for augmenting the retrieval results. Besides, a decompose-then-recompose algorithm is designed for retrieved documents to selectively focus on key information and filter out irrelevant information in them. CRAG is plug-and-play and can be seamlessly coupled with various RAG-based approaches. Experiments on four datasets covering short- and long-form generation tasks show that CRAG can significantly improve the performance of RAG-based approaches. [^3]
+Large language models (LLMs) inevitably exhibit hallucinations since the accuracy of generated texts cannot be secured solely by the parametric knowledge they encapsulate. Although retrieval-augmented generation (RAG) is a practicable complement to LLMs, it relies heavily on the relevance of retrieved documents, raising concerns about how the model behaves if retrieval goes wrong. To this end, we propose the **C**orrective **R**etrieval **A**ugmented **G**eneration (CRAG) to improve the robustness of generation. Specifically, a lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents for a query, returning a confidence degree based on which different knowledge retrieval actions can be triggered. Since retrieval from static and limited corpora can only return sub-optimal documents, large-scale web searches are utilized as an extension for augmenting the retrieval results. Besides, a decompose-then-recompose algorithm is designed for retrieved documents to selectively focus on key information and filter out irrelevant information in them. CRAG is plug-and-play and can be seamlessly coupled with various RAG-based approaches. Experiments on four datasets covering short- and long-form generation tasks show that CRAG can significantly improve the performance of RAG-based approaches. [^3]
 
 ## 1 Introduction
 
@@ -16,7 +16,7 @@ Figure 1: The examples show that a low-quality retriever is prone to introducing
 
 Prior research has introduced the retrieval techniques to incorporate the knowledge relevant to input and augment generation, as exemplified by retrieval-augmented generation (RAG) (Lewis et al., 2020). In this framework, the input to models is augmented by prepending relevant documents that are retrieved from an external knowledge corpus (Guu et al., 2020). While RAG serves as a practicable complement to LLMs, its effectiveness is contingent upon the relevance and accuracy of the retrieved documents (Li et al., 2022; Tan et al., 2022). The heavy reliance of generation on the retrieved knowledge raises significant concerns about the model’s behavior and performance in scenarios where retrieval may fail or return inaccurate results (Shi et al., 2023). As Figure 1 shows that a low-quality retriever is prone to introducing a substantial amount of irrelevant information, impeding the models from acquiring accurate knowledge and potentially misleading them, resulting in issues such as hallucinations (Zhang et al., 2023b). However, most conventional RAG approaches indiscriminately incorporate the retrieved documents, regardless of whether these documents are relevant or not (Rony et al., 2022). Furthermore, current methods mostly treat complete documents as reference knowledge both during retrieval and utilization. But a considerable portion of the text within these retrieved documents is often non-essential for generation, which should not have been equally referred to and involved in RAG.
 
-On account of the above issues, this paper particularly studies the scenarios where the retriever returns inaccurate results. A method named Corrective Retrieval-Augmented Generation (CRAG) is proposed to self-correct the results of retriever and improve the utilization of documents for augmenting generation. A lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents for a query. This serves as a crucial component in RAG, contributing to informative generation by reviewing and evaluating the relevance and reliability of the retrieved documents. A confidence degree is quantified based on which different knowledge retrieval actions of {Correct, Incorrect, Ambiguous} can be triggered. For the latter two actions, large-scale web searches (Piktus et al., 2021; Komeili et al., 2022) are integrated as a strategic extension, since retrieval from static and limited corpora can only return sub-optimal documents in terms of scope and diversity. This augmentation is implemented to broaden the spectrum of retrieved information, harnessing the expansive and dynamic nature of the web to complement and enrich the initially obtained documents. Furthermore, to eliminate redundant contexts contained in retrieved documents that are unhelpful for RAG, a decompose-then-recompose algorithm is meticulously crafted throughout the retrieval and utilization process. This algorithm ensures the refinement of retrieved information, optimizing the extraction of key insights and minimizing the inclusion of non-essential elements, thereby enhancing the utilization of retrieved data.
+On account of the above issues, this paper particularly studies the scenarios where the retriever returns inaccurate results. A method named **C**orrective **R**etrieval-**A**ugmented **G**eneration (CRAG) is proposed to self-correct the results of retriever and improve the utilization of documents for augmenting generation. A lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents for a query. This serves as a crucial component in RAG, contributing to informative generation by reviewing and evaluating the relevance and reliability of the retrieved documents. A confidence degree is quantified based on which different knowledge retrieval actions of {Correct, Incorrect, Ambiguous} can be triggered. For the latter two actions, large-scale web searches (Piktus et al., 2021; Komeili et al., 2022) are integrated as a strategic extension, since retrieval from static and limited corpora can only return sub-optimal documents in terms of scope and diversity. This augmentation is implemented to broaden the spectrum of retrieved information, harnessing the expansive and dynamic nature of the web to complement and enrich the initially obtained documents. Furthermore, to eliminate redundant contexts contained in retrieved documents that are unhelpful for RAG, a decompose-then-recompose algorithm is meticulously crafted throughout the retrieval and utilization process. This algorithm ensures the refinement of retrieved information, optimizing the extraction of key insights and minimizing the inclusion of non-essential elements, thereby enhancing the utilization of retrieved data.
 
 CRAG is plug-and-play and experimentally implemented into RAG (Lewis et al., 2020) and Self-RAG (Asai et al., 2024) for demonstrating its adaptability to RAG-based approaches. Results on four datasets of PopQA (Mallen et al., 2023), Biography (Min et al., 2023), Pub Health (Zhang et al., 2023a), and Arc-Challenge (Bhakthavatsalam et al., 2021) show that CRAG can significantly improve the performance of standard RAG and state-of-the-art Self-RAG, demonstrating its generalizability across both short- and long-form generation tasks. To facilitate others to reproduce our results, we will publish all source code later.
 
@@ -62,43 +62,43 @@ Figure 2 and Algorithm 1 present an overview of CRAG at inference, which designs
 
 It is natural to wonder whether the retrieved documents are accurate or not before using them, which is significant since irrelevant or misleading messages can be identified in this way. The accuracy of the retrieval evaluator undeniably plays a pivotal role in shaping the overall system performance, as it influences the outcomes of subsequent processes. Our objective is to correct the retrieved documents if they are irrelevant. Specifically, T5-large (Raffel et al., 2020) is adopted for initializing the retrieval evaluator and fine-tuned. Its parameter size is much smaller than the most current LLMs (Touvron et al., 2023a; Touvron et al., 2023b; Chowdhery et al., 2023; Anil et al., 2023; Brown et al., 2020; Ouyang et al., 2022; OpenAI, 2023). To ensure all experimental results were comparable with Self-RAG (Asai et al., 2024), the same retrieval results through Contriever (Izacard et al., 2022) provided by Self-RAG were also adopted in our experiments. The relevance signals for fine-tuning the evaluator can be collected from the existing datasets. For example, PopQA (Mallen et al., 2023) provides the golden subject wiki title from wikipedia for each question. We can use that to track a not 100% relevant but rather high-quality passage. We utilized that as the relevance signals for fine-tuning the retrieval evaluator.[^4] On the other hand, the negative samples for fine-tuning were all randomly sampled from the retrieval results, which are rather similar to the input query but not relevant. More details about this fine-tuning step can be referred to in Appendix B.3. For every question, there are generally 10 documents retrieved. The question is concatenated with each single document as the input, and the evaluator predicts the relevance score for each question-document pair individually. We also tried to prompt ChatGPT to identify the retrieval relevance for comparison, but it underperforms as elaborated in Section 5.5. Based on these calculated relevance scores, a final judgment is made as to whether the retrieval is correct or not associated with the action trigger. In our proposed framework, the retrieval quality is evaluated at a relatively low cost without the need to have access to large and expensive LLMs. Compared with the critic model of Self-RAG (Asai et al., 2024) that instruction-tuned LLaMA-2 (7B), the evaluator designed in CRAG demonstrates the advantages of being quite lightweight (0.77B).
 
-Require : $E$ (Retrieval Evaluator), $W$ (Query Rewriter), $G$ (Generator)
+**Require :** $E$ (Retrieval Evaluator), $W$ (Query Rewriter), $G$ (Generator)
 
-Input : $x$ (Input question), $D = {\{{d_{1},d_{2},\ldots,d_{k}}\}}$ (Retrieved documents)
+**Input :** $x$ (Input question), $D = {\{{d_{1},d_{2},\ldots,d_{k}}\}}$ (Retrieved documents)
 
-Output : $y$ (Generated response)
+**Output :** $y$ (Generated response)
 
-1 $score_{i}$ = $E$ evaluates the relevance of each pair ($x$, $d_{i}$), $d_{i} \in D$
+**1** $score_{i}$ = $E$ evaluates the relevance of each pair ($x$, $d_{i}$), $d_{i} \in D$
 
-2 Confidence = Calculate and give a final judgment based on {${score_{1}},{score_{2}},{\ldotsscore_{k}}$}
+**2** **Confidence** = Calculate and give a final judgment based on {${score_{1}},{score_{2}},{\ldotsscore_{k}}$}
 
-// Confidence has 3 optional values: \[CORRECT\], \[INCORRECT\] or \[AMBIGUOUS\]
+// **Confidence has 3 optional values: \[CORRECT\], \[INCORRECT\] or \[AMBIGUOUS\] **
 
-3 if *Confidence == \[CORRECT\]* then
+**3** **if** *Confidence == \[CORRECT\]* **then**
 
-   4 Internal_Knowledge = Knowledge_Refine($x$, $D$)
+   **4** Internal_Knowledge = Knowledge_Refine($x$, $D$)
 
-   5 $k$ = Internal_Knowledge
+   **5** $k$ = Internal_Knowledge
 
-   6 else if *Confidence == \[INCORRECT\]* then
+   **6** **else if** *Confidence == \[INCORRECT\]* **then**
 
-     7 External_Knowledge = Web_Search($W$ Rewrites $x$ for searching)
+     **7** External_Knowledge = Web_Search($W$ Rewrites $x$ for searching)
 
-     8 $k$ = External_Knowledge
+     **8** $k$ = External_Knowledge
 
-     9 else if *Confidence == \[AMBIGUOUS\]* then
+     **9** **else if** *Confidence == \[AMBIGUOUS\]* **then**
 
-       10 Internal_Knowledge = Knowledge_Refine($x$, $D$)
+       **10** Internal_Knowledge = Knowledge_Refine($x$, $D$)
 
-       11 External_Knowledge = Web_Search($W$ Rewrites $x$ for searching)
+       **11** External_Knowledge = Web_Search($W$ Rewrites $x$ for searching)
 
-       12 $k$ = Internal_Knowledge + External_Knowledge
+       **12** $k$ = Internal_Knowledge + External_Knowledge
 
-       13 end if
+       **13** end if
 
-14 $G$ predicts $y$ given $x$ and $k$
+**14** $G$ predicts $y$ given $x$ and $k$
 
-Algorithm 1 CRAG Inference
+**Algorithm 1** CRAG Inference
 
 ### 4.3 Action Trigger
 
@@ -130,56 +130,56 @@ It would be more intelligent if a system itself could determine that its existin
 
 ## 5 Experiments
 
-Table 1: Overall evaluation results on the test sets of four datasets. Results are separated based on the generation LLMs. Bold numbers indicate the best performance among all methods and LLMs. Gray-colored bold scores indicate the best performance using a specific LLM. \* indicates the results reproduced by us, otherwise results except ours are cited from their original papers.
+Table 1: Overall evaluation results on the test sets of four datasets. Results are separated based on the generation LLMs. **Bold** numbers indicate the best performance among all methods and LLMs. **Gray-colored** bold scores indicate the best performance using a specific LLM. \* indicates the results reproduced by us, otherwise results except ours are cited from their original papers.
 
 |                                   |            |             |            |            |
 |-----------------------------------|------------|-------------|------------|------------|
 |                                   | PopQA      | Bio         | Pub        | ARC        |
 | Method                            | (Accuracy) | (FactScore) | (Accuracy) | (Accuracy) |
 | *LMs trained with propriety data* |            |             |            |            |
-| LLaMA2-c<sub>13B</sub>            | 20.0       | 55.9        | 49.4       | 38.4       |
-| Ret-LLaMA2-c<sub>13B</sub>        | 51.8       | 79.9        | 52.1       | 37.9       |
-| ChatGPT                           | 29.3       | 71.8        | 70.1       | 75.3       |
-| Ret-ChatGPT                       | 50.8       | \-          | 54.7       | 75.3       |
+| LLaMA2-c<sub>*13B*</sub>          | 20.0       | 55.9        | 49.4       | 38.4       |
+| Ret-LLaMA2-c<sub>*13B*</sub>      | 51.8       | 79.9        | 52.1       | 37.9       |
+| ChatGPT                           | 29.3       | 71.8        | 70.1       | **75.3**   |
+| Ret-ChatGPT                       | 50.8       | \-          | 54.7       | **75.3**   |
 | Perplexity.ai                     | \-         | 71.2        | \-         | \-         |
 | *Baselines without retrieval*     |            |             |            |            |
-| LLaMA2<sub>7B</sub>               | 14.7       | 44.5        | 34.2       | 21.8       |
-| Alpaca<sub>7B</sub>               | 23.6       | 45.8        | 49.8       | 45.0       |
-| LLaMA2<sub>13B</sub>              | 14.7       | 53.4        | 29.4       | 29.4       |
-| Alpaca<sub>13B</sub>              | 24.4       | 50.2        | 55.5       | 54.9       |
-| CoVE<sub>65B</sub>                | \-         | 71.2        | \-         | \-         |
+| LLaMA2<sub>*7B*</sub>             | 14.7       | 44.5        | 34.2       | 21.8       |
+| Alpaca<sub>*7B*</sub>             | 23.6       | 45.8        | 49.8       | 45.0       |
+| LLaMA2<sub>*13B*</sub>            | 14.7       | 53.4        | 29.4       | 29.4       |
+| Alpaca<sub>*13B*</sub>            | 24.4       | 50.2        | 55.5       | 54.9       |
+| CoVE<sub>*65B*</sub>              | \-         | 71.2        | \-         | \-         |
 | *Baselines with retrieval*        |            |             |            |            |
-| LLaMA2<sub>7B</sub>               | 38.2       | 78.0        | 30.0       | 48.0       |
-| Alpaca<sub>7B</sub>               | 46.7       | 76.6        | 40.2       | 48.0       |
+| LLaMA2<sub>*7B*</sub>             | 38.2       | 78.0        | 30.0       | 48.0       |
+| Alpaca<sub>*7B*</sub>             | 46.7       | 76.6        | 40.2       | 48.0       |
 | SAIL                              | \-         | \-          | 69.2       | 48.4       |
-| LLaMA2<sub>13B</sub>              | 45.7       | 77.5        | 30.2       | 26.0       |
-| Alpaca<sub>13B</sub>              | 46.1       | 77.7        | 51.1       | 57.6       |
+| LLaMA2<sub>*13B*</sub>            | 45.7       | 77.5        | 30.2       | 26.0       |
+| Alpaca<sub>*13B*</sub>            | 46.1       | 77.7        | 51.1       | 57.6       |
 | *LLaMA2-hf-7b*                    |            |             |            |            |
 | RAG                               | 50.5       | 44.9        | 48.9       | 43.4       |
-| CRAG                              | 54.9       | 47.7        | 59.5       | 53.7       |
+| CRAG                              | **54.9**   | 47.7        | **59.5**   | **53.7**   |
 | Self-RAG\*                        | 29.0       | 32.2        | 0.7        | 23.9       |
-| Self-CRAG                         | 49.0       | 69.1        | 0.6        | 27.9       |
+| Self-CRAG                         | 49.0       | **69.1**    | 0.6        | 27.9       |
 | *SelfRAG-LLaMA2-7b*               |            |             |            |            |
 | RAG                               | 52.8       | 59.2        | 39.0       | 53.2       |
-| CRAG                              | 59.8       | 74.1        | 75.6       | 68.6       |
+| CRAG                              | 59.8       | 74.1        | **75.6**   | 68.6       |
 | Self-RAG                          | 54.9       | 81.2        | 72.4       | 67.3       |
-| Self-CRAG                         | 61.8       | 86.2        | 74.8       | 67.2       |
+| Self-CRAG                         | **61.8**   | **86.2**    | 74.8       | 67.2       |
 
 We conducted experiments to extensively demonstrate CRAG’s adaptability to RAG-based approaches and its generalizability across both short- and long-form generation tasks.
 
 ### 5.1 Tasks, Datasets and Metrics
 
-CRAG was evaluated on four datasets, including PopQA (Mallen et al., 2023) (*short*-form generation), Biography (Min et al., 2023) (*long*-form generation), PubHealth (Zhang et al., 2023a) (*true-or-false* question), and Arc-Challenge (Bhakthavatsalam et al., 2021) (*multiple-choice* question). Following previous work, accuracy was adopted as the evaluation metric for PopQA, PubHealth, and Arc-Challenge. FactScore (Min et al., 2023) was adopted as the evaluation metric for Biography. Readers can refer to Appendix B.1 for more details. The same metrics are used because our proposed method is comparable to previous studies, since we used the same retrieval results as previous work. The difference lies in that our motivation is to improve the retrieval quality by correcting the retrieval results that the system judges to be of low quality. This can be analogous to RAG’s augmentation to standalone parameterized language models and we further augment RAG with corrective strategies.
+CRAG was evaluated on four datasets, including **PopQA** (Mallen et al., 2023) (*short*-form generation), **Biography** (Min et al., 2023) (*long*-form generation), **PubHealth** (Zhang et al., 2023a) (*true-or-false* question), and **Arc-Challenge** (Bhakthavatsalam et al., 2021) (*multiple-choice* question). Following previous work, accuracy was adopted as the evaluation metric for PopQA, PubHealth, and Arc-Challenge. FactScore (Min et al., 2023) was adopted as the evaluation metric for Biography. Readers can refer to Appendix B.1 for more details. The same metrics are used because our proposed method is comparable to previous studies, since we used the same retrieval results as previous work. The difference lies in that our motivation is to improve the retrieval quality by correcting the retrieval results that the system judges to be of low quality. This can be analogous to RAG’s augmentation to standalone parameterized language models and we further augment RAG with corrective strategies.
 
 ### 5.2 Baselines
 
 We primarily compared CRAG with both approaches with and without retrieval, where the latter can be further split into standard RAG and latest advanced RAG, including:
 
-Baselines without retrieval. We evaluated some public LLMs, LLaMA2-7B,13B (Touvron et al., 2023b), instruction-tuned models, Alpaca-7B,13B (Dubois et al., 2023), and CoVE<sub>65B</sub> (Dhuliawala et al., 2024) which introduces iterative engineering to improve the factuality of LLM generations. Propriety LLMs such as LLaMA2-chat<sub>13B</sub> and ChatGPT are also included.
+**Baselines without retrieval.** We evaluated some public LLMs, LLaMA2-7B,13B (Touvron et al., 2023b), instruction-tuned models, Alpaca-7B,13B (Dubois et al., 2023), and CoVE<sub>*65B*</sub> (Dhuliawala et al., 2024) which introduces iterative engineering to improve the factuality of LLM generations. Propriety LLMs such as LLaMA2-chat<sub>*13B*</sub> and ChatGPT are also included.
 
-Standard RAG. We evaluated the standard RAG (Lewis et al., 2020) where an LM generates output given the query prepended with the top retrieved documents using the same retriever as in our system. Here we adopted several public instruction-tuned LLMs, including LLaMA2-7B, 13B (Touvron et al., 2023b), Alpaca-7B,13B (Dubois et al., 2023), as well as LLaMA2-7B instruction-tuned in Self-RAG (Asai et al., 2024).
+**Standard RAG.** We evaluated the standard RAG (Lewis et al., 2020) where an LM generates output given the query prepended with the top retrieved documents using the same retriever as in our system. Here we adopted several public instruction-tuned LLMs, including LLaMA2-7B, 13B (Touvron et al., 2023b), Alpaca-7B,13B (Dubois et al., 2023), as well as LLaMA2-7B instruction-tuned in Self-RAG (Asai et al., 2024).
 
-Advanced RAG. (1) SAIL (Luo et al., 2023) that instruction-tuned an LM on the Alpaca instruction-tuning data with top retrieved documents inserted before instructions. (2) Self-RAG (Asai et al., 2024) that tuned the LLaMA2 on the instruction-tuning data comtaining several sets of reflection tokens which were labeled by GPT-4 (OpenAI, 2023). (3) Following Asai et al. (2024), we also cited the results of retrieval-augmented baselines trained with private data: Ret-ChatGPT and Ret-LLaMA-chat, which deploy the same augmentation technique above, as well as perplexity.ai, an InstructGPT-based production search system.
+**Advanced RAG.** (1) SAIL (Luo et al., 2023) that instruction-tuned an LM on the Alpaca instruction-tuning data with top retrieved documents inserted before instructions. (2) Self-RAG (Asai et al., 2024) that tuned the LLaMA2 on the instruction-tuning data comtaining several sets of reflection tokens which were labeled by GPT-4 (OpenAI, 2023). (3) Following Asai et al. (2024), we also cited the results of retrieval-augmented baselines trained with private data: Ret-ChatGPT and Ret-LLaMA-chat, which deploy the same augmentation technique above, as well as perplexity.ai, an InstructGPT-based production search system.
 
 ### 5.3 Results
 
@@ -401,13 +401,13 @@ Table 10: The few-shot prompt to GPT-3.5 Turbo as the evaluator.
 
 CRAG was evaluated on four datasets, which are in public domain and licensed for research purposes, including:
 
-PopQA (Mallen et al., 2023) is a *short*-form generation task. Generally, only one entity of factual knowledge is expected to be answered for each single question. In our experiments, we exactly followed the setting in Self-RAG (Asai et al., 2024) which evaluated methods on a long-tail subset consisting of 1,399 rare entity queries whose monthly Wikipedia page views are less than 100. Accuracy was adopted as the evaluation metric.
+**PopQA** (Mallen et al., 2023) is a *short*-form generation task. Generally, only one entity of factual knowledge is expected to be answered for each single question. In our experiments, we exactly followed the setting in Self-RAG (Asai et al., 2024) which evaluated methods on a long-tail subset consisting of 1,399 rare entity queries whose monthly Wikipedia page views are less than 100. Accuracy was adopted as the evaluation metric.
 
-Biography (Min et al., 2023) is a *long*-form generation task that is tasked to generate a detailed biography about a certain entity. Following previous work, FactScore (Min et al., 2023) was adopted to evaluate the generated biographies.
+**Biography** (Min et al., 2023) is a *long*-form generation task that is tasked to generate a detailed biography about a certain entity. Following previous work, FactScore (Min et al., 2023) was adopted to evaluate the generated biographies.
 
-PubHealth (Zhang et al., 2023a) is a task in health care domain consisting of true-or-false questions. Claims are represented about health with factual information, and the model is tasked to verify the authenticity and give the judgment. Accuracy was adopted as the evaluation metric.
+**PubHealth** (Zhang et al., 2023a) is a task in health care domain consisting of true-or-false questions. Claims are represented about health with factual information, and the model is tasked to verify the authenticity and give the judgment. Accuracy was adopted as the evaluation metric.
 
-Arc-Challenge (Bhakthavatsalam et al., 2021) is a multiple-choice question task about some daily commonsense science phenomena. Given a scientific event that occurs in daily life, the model is required to select the correct description among 3 or 4 optional choices. Accuracy was adopted as the evaluation metric as well.
+**Arc-Challenge** (Bhakthavatsalam et al., 2021) is a multiple-choice question task about some daily commonsense science phenomena. Given a scientific event that occurs in daily life, the model is required to select the correct description among 3 or 4 optional choices. Accuracy was adopted as the evaluation metric as well.
 
 ### B.2 Experiments compute Resources
 
@@ -415,19 +415,19 @@ We used NVIDIA A800 80GB GPU for experiments. For LLaMA-2 (7B) generation, it oc
 
 ### B.3 Implementation Details
 
-Retrieval Evaluator: We fine-tuned the retrieval evaluator based on the lightweight T5-large (Raffel et al., 2020) pre-trained model. The dataset we used is the version provided by Self-RAG (Asai et al., 2024). Specifically, the original PopQA dataset consists of 14k samples, 1,399 of which were used for testing following Self-RAG (Asai et al., 2024), and the remaining were used for fine-tuning to avoid information leakage. Besides, the fine-tuned evaluator was transferred and also utilized on the Bio, Pub and ARC datasets during inference. The label of positive samples was 1, while that of negative ones was -1. At inference, the evaluator scored the relevance from -1 to 1 for each document. The two confidence thresholds for triggering one of the three actions were set empirically. Specifically, they were set as (0.59, -0.99) in PopQA, (0.5, -0.91) in PubQA and Arc-Challenge, as well as (0.95, -0.91) in Biography.
+**Retrieval Evaluator:** We fine-tuned the retrieval evaluator based on the lightweight T5-large (Raffel et al., 2020) pre-trained model. The dataset we used is the version provided by Self-RAG (Asai et al., 2024). Specifically, the original PopQA dataset consists of 14k samples, 1,399 of which were used for testing following Self-RAG (Asai et al., 2024), and the remaining were used for fine-tuning to avoid information leakage. Besides, the fine-tuned evaluator was transferred and also utilized on the Bio, Pub and ARC datasets during inference. The label of positive samples was 1, while that of negative ones was -1. At inference, the evaluator scored the relevance from -1 to 1 for each document. The two confidence thresholds for triggering one of the three actions were set empirically. Specifically, they were set as (0.59, -0.99) in PopQA, (0.5, -0.91) in PubQA and Arc-Challenge, as well as (0.95, -0.91) in Biography.
 
-Internal Knowledge: To obtain fine-grained retrieval results, we segmented the retrieved results into internal strips. If a retrieved result is as short as one or two sentences, it is regarded as an individual strip, otherwise, retrieval documents are required to be split into smaller units which generally consist of a few sentences according to the total length. The scale is assumed to include an independent piece of information, and the filtering is based on the segments. We directly adopted the evaluator again for knowledge strips filtering, and the top-k is set to 5, filter threshold as -0.5.
+**Internal Knowledge:** To obtain fine-grained retrieval results, we segmented the retrieved results into internal strips. If a retrieved result is as short as one or two sentences, it is regarded as an individual strip, otherwise, retrieval documents are required to be split into smaller units which generally consist of a few sentences according to the total length. The scale is assumed to include an independent piece of information, and the filtering is based on the segments. We directly adopted the evaluator again for knowledge strips filtering, and the top-k is set to 5, filter threshold as -0.5.
 
-External Knowledge: Google Search API was adopted to search for the relevant URLs, top-k is set to 5, and pages from Wikipedia will be added preferentially. The searched web pages are generally in the form of HTML files, where content is split with special tokens like $<$p$>$ and $<$/p$>$. Thus an extra segmentation like the knowledge refinement is not required, related knowledge paragraphs can be directly selected with the evaluator similar to internal knowledge. In this way, the accuracy of the search outcomes can be ensured without compromising the quality and relevance of the information used for generation.
+**External Knowledge:** Google Search API was adopted to search for the relevant URLs, top-k is set to 5, and pages from Wikipedia will be added preferentially. The searched web pages are generally in the form of HTML files, where content is split with special tokens like $<$p$>$ and $<$/p$>$. Thus an extra segmentation like the knowledge refinement is not required, related knowledge paragraphs can be directly selected with the evaluator similar to internal knowledge. In this way, the accuracy of the search outcomes can be ensured without compromising the quality and relevance of the information used for generation.
 
-Generator: As CRAG is a plug-and-play method, all generation models that can be utilized in RAG fit our approach as well. To be consistent with baselines for comparison, we adopted LLaMA2 (Touvron et al., 2023b) for the generation. We first introduced the *LLaMA2-hf-7b* from huggingface to generate responses. Since Self-RAG (Asai et al., 2024) fine-tuned LLaMA2 and reached a new state-of-the-art performance on several tasks, we further utilized the launched model, *SelfRAG-LLaMA2-7b*, as a new generator to be consistent with their work and study the specific improvement of our method.
+**Generator:** As CRAG is a plug-and-play method, all generation models that can be utilized in RAG fit our approach as well. To be consistent with baselines for comparison, we adopted LLaMA2 (Touvron et al., 2023b) for the generation. We first introduced the *LLaMA2-hf-7b* from huggingface to generate responses. Since Self-RAG (Asai et al., 2024) fine-tuned LLaMA2 and reached a new state-of-the-art performance on several tasks, we further utilized the launched model, *SelfRAG-LLaMA2-7b*, as a new generator to be consistent with their work and study the specific improvement of our method.
 
-Self-CRAG: To demonstrate that our plug-and-play approach can be utilized in other concurrent studies, we specifically designed to insert our CRAG into the Self-RAG (Asai et al., 2024) framework and named it Self-CRAG. Self-RAG is an advanced RAG approach that introduces a critic model to decide whether to retrieve and which retrieved document to be referred for generation. It meets our demand for deciding which action to be triggered, thus we replaced the retrieved items in Self-RAG with our processed internal knowledge for Correct, external knowledge for Incorrect, and combined knowledge for Ambiguous.
+**Self-CRAG:** To demonstrate that our plug-and-play approach can be utilized in other concurrent studies, we specifically designed to insert our CRAG into the Self-RAG (Asai et al., 2024) framework and named it Self-CRAG. Self-RAG is an advanced RAG approach that introduces a critic model to decide whether to retrieve and which retrieved document to be referred for generation. It meets our demand for deciding which action to be triggered, thus we replaced the retrieved items in Self-RAG with our processed internal knowledge for Correct, external knowledge for Incorrect, and combined knowledge for Ambiguous.
 
 ### B.4 More Detailed Results
 
-Ablation Study: The following results in Table 11 demonstrate the ablation study by triggering one action only for all instances.
+**Ablation Study:** The following results in Table 11 demonstrate the ablation study by triggering one action only for all instances.
 
 Table 11: Ablation study for removing only a single action on the PopQA dataset in terms of accuracy.
 

@@ -102,48 +102,48 @@ In order to simulate a realistic scenario, where different queries have varying 
 
 Table 1: Averaged results on a collection of benchmark datasets for open-domain question answering including the single-hop and multi-hop queries, with different LLMs. Self-RAG<sup>∗</sup> is trained with a different base LLM, namely LLaMA2 (Touvron et al., 2023); therefore, we compare the results of FLAN-T5-XL (3B) with the results from Self-RAG with LLaMA2 (7B) and the results of others with the results from Self-RAG with LLaMA2 (13B). We emphasize our results in bold, for easy comparisons.
 
-|              |                        |                 |       |       |      |      |                   |       |       |      |      |                 |       |       |      |      |
-|--------------|------------------------|-----------------|-------|-------|------|------|-------------------|-------|-------|------|------|-----------------|-------|-------|------|------|
-|              |                        | FLAN-T5-XL (3B) |       |       |      |      | FLAN-T5-XXL (11B) |       |       |      |      | GPT-3.5 (Turbo) |       |       |      |      |
-| Types        | Methods                | EM              | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time | EM              | F1    | Acc   | Step | Time |
-|  Simple      | No Retrieval           | 14.87           | 21.12 | 15.97 | 0.00 | 0.11 | 17.83             | 25.14 | 19.33 | 0.00 | 0.08 | 35.77           | 48.56 | 44.27 | 0.00 | 0.71 |
-|              | Single-step Approach   | 34.83           | 44.31 | 38.87 | 1.00 | 1.00 | 37.87             | 47.63 | 41.90 | 1.00 | 1.00 | 34.73           | 46.99 | 45.27 | 1.00 | 1.00 |
-|  Adaptive    | Adaptive Retrieval     | 23.87           | 32.24 | 26.73 | 0.50 | 0.56 | 26.93             | 35.67 | 29.73 | 0.50 | 0.54 | 35.90           | 48.20 | 45.30 | 0.50 | 0.86 |
-|              | Self-RAG<sup>∗</sup>   | 9.90            | 20.79 | 31.57 | 0.72 | 0.43 | 10.87             | 22.98 | 34.13 | 0.74 | 0.23 | 10.87           | 22.98 | 34.13 | 0.74 | 1.50 |
-|              | Adaptive-RAG (Ours)    | 37.17           | 46.94 | 42.10 | 2.17 | 3.60 | 38.90             | 48.62 | 43.77 | 1.35 | 2.00 | 37.97           | 50.91 | 48.97 | 1.03 | 1.46 |
-| Complex      | Multi-step Approach    | 39.00           | 48.85 | 43.70 | 4.69 | 8.81 | 40.13             | 50.09 | 45.20 | 2.13 | 3.80 | 38.13           | 50.87 | 49.70 | 2.81 | 3.33 |
-| Oracle       | Adaptive-RAG w/ Oracle | 45.00           | 56.28 | 49.90 | 1.28 | 2.11 | 47.17             | 58.60 | 52.20 | 0.84 | 1.10 | 47.70           | 62.80 | 58.57 | 0.50 | 1.03 |
+|                  |                            |                     |           |           |          |          |                       |           |           |          |          |                     |           |           |          |          |
+|------------------|----------------------------|---------------------|-----------|-----------|----------|----------|-----------------------|-----------|-----------|----------|----------|---------------------|-----------|-----------|----------|----------|
+|                  |                            | **FLAN-T5-XL (3B)** |           |           |          |          | **FLAN-T5-XXL (11B)** |           |           |          |          | **GPT-3.5 (Turbo)** |           |           |          |          |
+| **Types**        | **Methods**                | EM                  | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Simple**      | **No Retrieval**           | 14.87               | 21.12     | 15.97     | 0.00     | 0.11     | 17.83                 | 25.14     | 19.33     | 0.00     | 0.08     | 35.77               | 48.56     | 44.27     | 0.00     | 0.71     |
+|                  | **Single-step Approach**   | 34.83               | 44.31     | 38.87     | 1.00     | 1.00     | 37.87                 | 47.63     | 41.90     | 1.00     | 1.00     | 34.73               | 46.99     | 45.27     | 1.00     | 1.00     |
+|  **Adaptive**    | **Adaptive Retrieval**     | 23.87               | 32.24     | 26.73     | 0.50     | 0.56     | 26.93                 | 35.67     | 29.73     | 0.50     | 0.54     | 35.90               | 48.20     | 45.30     | 0.50     | 0.86     |
+|                  | **Self-RAG<sup>∗</sup>**   | 9.90                | 20.79     | 31.57     | 0.72     | 0.43     | 10.87                 | 22.98     | 34.13     | 0.74     | 0.23     | 10.87               | 22.98     | 34.13     | 0.74     | 1.50     |
+|                  | **Adaptive-RAG (Ours)**    | **37.17**           | **46.94** | **42.10** | **2.17** | **3.60** | **38.90**             | **48.62** | **43.77** | **1.35** | **2.00** | **37.97**           | **50.91** | **48.97** | **1.03** | **1.46** |
+| **Complex**      | **Multi-step Approach**    | 39.00               | 48.85     | 43.70     | 4.69     | 8.81     | 40.13                 | 50.09     | 45.20     | 2.13     | 3.80     | 38.13               | 50.87     | 49.70     | 2.81     | 3.33     |
+| **Oracle**       | **Adaptive-RAG w/ Oracle** | 45.00               | 56.28     | 49.90     | 1.28     | 2.11     | 47.17                 | 58.60     | 52.20     | 0.84     | 1.10     | 47.70               | 62.80     | 58.57     | 0.50     | 1.03     |
 
 #### Single-hop QA
 
-For simpler queries, we use three benchmark single-hop QA datasets, which consist of queries and their associated documents containing answers, namely 1) SQuAD v1.1 (Rajpurkar et al., 2016), 2) Natural Questions (Kwiatkowski et al., 2019), and 3) TriviaQA (Joshi et al., 2017).
+For simpler queries, we use three benchmark single-hop QA datasets, which consist of queries and their associated documents containing answers, namely **1) SQuAD v1.1** (Rajpurkar et al., 2016), **2) Natural Questions** (Kwiatkowski et al., 2019), and **3) TriviaQA** (Joshi et al., 2017).
 
 #### Multi-hop QA
 
-To consider more complex query scenarios, we use three benchmark multi-hop QA datasets, which require sequential reasoning over multiple documents, namely 1) MuSiQue (Trivedi et al., 2022a), 2) HotpotQA (Yang et al., 2018), and 3) 2WikiMultiHopQA (Ho et al., 2020).
+To consider more complex query scenarios, we use three benchmark multi-hop QA datasets, which require sequential reasoning over multiple documents, namely **1) MuSiQue** (Trivedi et al., 2022a), **2) HotpotQA** (Yang et al., 2018), and **3) 2WikiMultiHopQA** (Ho et al., 2020).
 
 Table 2: Results on each of a collection of datasets with FLAN-T5-XL (3B) as the LLM. We emphasize our results in bold.
 
-|                 |              |                        |         |       |       |      |      |                   |       |       |      |       |                 |       |       |      |      |
-|-----------------|--------------|------------------------|---------|-------|-------|------|------|-------------------|-------|-------|------|-------|-----------------|-------|-------|------|------|
-|                 |              |                        | SQuAD   |       |       |      |      | Natural Questions |       |       |      |       | TriviaQA        |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time  | EM              | F1    | Acc   | Step | Time |
-|  Single-step    |  Simple      | No Retrieval           | 3.60    | 10.50 | 5.00  | 0.00 | 0.11 | 14.20             | 19.00 | 15.60 | 0.00 | 0.13  | 25.00           | 31.80 | 27.00 | 0.00 | 0.13 |
-|                 |              | Single-step Approach   | 27.80   | 39.30 | 34.00 | 1.00 | 1.00 | 37.80             | 47.30 | 44.60 | 1.00 | 1.00  | 53.60           | 62.40 | 60.20 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 13.40   | 23.10 | 17.60 | 0.50 | 0.55 | 28.20             | 36.00 | 33.00 | 0.50 | 0.56  | 38.40           | 46.90 | 42.60 | 0.50 | 0.56 |
-|                 |              | Self-RAG<sup>∗</sup>   | 2.20    | 11.20 | 18.40 | 0.63 | 0.50 | 31.40             | 39.00 | 33.60 | 0.63 | 0.17  | 12.80           | 29.30 | 57.00 | 0.68 | 0.45 |
-|                 |              | Adaptive-RAG (Ours)    | 26.80   | 38.30 | 33.00 | 1.37 | 2.02 | 37.80             | 47.30 | 44.60 | 1.00 | 1.00  | 52.20           | 60.70 | 58.20 | 1.23 | 1.54 |
-|                 | Complex      | Multi-step Approach    | 24.40   | 35.60 | 29.60 | 4.52 | 9.03 | 38.60             | 47.80 | 44.20 | 5.04 | 10.18 | 53.80           | 62.40 | 60.20 | 5.28 | 9.22 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 32.00   | 45.60 | 38.20 | 1.24 | 1.60 | 47.40             | 57.10 | 53.60 | 1.10 | 1.55  | 61.60           | 70.20 | 66.40 | 0.79 | 1.10 |
-|                 |              |                        | MuSiQue |       |       |      |      | HotpotQA          |       |       |      |       | 2WikiMultiHopQA |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time  | EM              | F1    | Acc   | Step | Time |
-|  Multi-step     |  Simple      | No Retrieval           | 2.40    | 10.70 | 3.20  | 0.00 | 0.11 | 16.60             | 22.71 | 17.20 | 0.00 | 0.11  | 27.40           | 32.04 | 27.80 | 0.00 | 0.10 |
-|                 |              | Single-step Approach   | 13.80   | 22.80 | 15.20 | 1.00 | 1.00 | 34.40             | 46.15 | 36.40 | 1.00 | 1.00  | 41.60           | 47.90 | 42.80 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 6.40    | 15.80 | 8.00  | 0.50 | 0.55 | 23.60             | 32.22 | 25.00 | 0.50 | 0.55  | 33.20           | 39.44 | 34.20 | 0.50 | 0.55 |
-|                 |              | Self-RAG<sup>∗</sup>   | 1.60    | 8.10  | 12.00 | 0.73 | 0.51 | 6.80              | 17.53 | 29.60 | 0.73 | 0.45  | 4.60            | 19.59 | 38.80 | 0.93 | 0.49 |
-|                 |              | Adaptive-RAG (Ours)    | 23.60   | 31.80 | 26.00 | 3.22 | 6.61 | 42.00             | 53.82 | 44.40 | 3.55 | 5.99  | 40.60           | 49.75 | 46.40 | 2.63 | 4.68 |
-|                 | Complex      | Multi-step Approach    | 23.00   | 31.90 | 25.80 | 3.60 | 7.58 | 44.60             | 56.54 | 47.00 | 5.53 | 9.38  | 49.60           | 58.85 | 55.40 | 4.17 | 7.37 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 24.80   | 38.50 | 27.00 | 1.98 | 3.99 | 51.20             | 64.00 | 54.80 | 1.59 | 2.77  | 53.00           | 62.30 | 59.40 | 1.01 | 1.69 |
+|                     |                  |                            |             |           |           |          |          |                       |           |           |          |          |                     |           |           |          |          |
+|---------------------|------------------|----------------------------|-------------|-----------|-----------|----------|----------|-----------------------|-----------|-----------|----------|----------|---------------------|-----------|-----------|----------|----------|
+|                     |                  |                            | **SQuAD**   |           |           |          |          | **Natural Questions** |           |           |          |          | **TriviaQA**        |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Single-step**    |  **Simple**      | **No Retrieval**           | 3.60        | 10.50     | 5.00      | 0.00     | 0.11     | 14.20                 | 19.00     | 15.60     | 0.00     | 0.13     | 25.00               | 31.80     | 27.00     | 0.00     | 0.13     |
+|                     |                  | **Single-step Approach**   | 27.80       | 39.30     | 34.00     | 1.00     | 1.00     | 37.80                 | 47.30     | 44.60     | 1.00     | 1.00     | 53.60               | 62.40     | 60.20     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 13.40       | 23.10     | 17.60     | 0.50     | 0.55     | 28.20                 | 36.00     | 33.00     | 0.50     | 0.56     | 38.40               | 46.90     | 42.60     | 0.50     | 0.56     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 2.20        | 11.20     | 18.40     | 0.63     | 0.50     | 31.40                 | 39.00     | 33.60     | 0.63     | 0.17     | 12.80               | 29.30     | 57.00     | 0.68     | 0.45     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **26.80**   | **38.30** | **33.00** | **1.37** | **2.02** | **37.80**             | **47.30** | **44.60** | **1.00** | **1.00** | **52.20**           | **60.70** | **58.20** | **1.23** | **1.54** |
+|                     | **Complex**      | **Multi-step Approach**    | 24.40       | 35.60     | 29.60     | 4.52     | 9.03     | 38.60                 | 47.80     | 44.20     | 5.04     | 10.18    | 53.80               | 62.40     | 60.20     | 5.28     | 9.22     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 32.00       | 45.60     | 38.20     | 1.24     | 1.60     | 47.40                 | 57.10     | 53.60     | 1.10     | 1.55     | 61.60               | 70.20     | 66.40     | 0.79     | 1.10     |
+|                     |                  |                            | **MuSiQue** |           |           |          |          | **HotpotQA**          |           |           |          |          | **2WikiMultiHopQA** |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Multi-step**     |  **Simple**      | **No Retrieval**           | 2.40        | 10.70     | 3.20      | 0.00     | 0.11     | 16.60                 | 22.71     | 17.20     | 0.00     | 0.11     | 27.40               | 32.04     | 27.80     | 0.00     | 0.10     |
+|                     |                  | **Single-step Approach**   | 13.80       | 22.80     | 15.20     | 1.00     | 1.00     | 34.40                 | 46.15     | 36.40     | 1.00     | 1.00     | 41.60               | 47.90     | 42.80     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 6.40        | 15.80     | 8.00      | 0.50     | 0.55     | 23.60                 | 32.22     | 25.00     | 0.50     | 0.55     | 33.20               | 39.44     | 34.20     | 0.50     | 0.55     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 1.60        | 8.10      | 12.00     | 0.73     | 0.51     | 6.80                  | 17.53     | 29.60     | 0.73     | 0.45     | 4.60                | 19.59     | 38.80     | 0.93     | 0.49     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **23.60**   | **31.80** | **26.00** | **3.22** | **6.61** | **42.00**             | **53.82** | **44.40** | **3.55** | **5.99** | **40.60**           | **49.75** | **46.40** | **2.63** | **4.68** |
+|                     | **Complex**      | **Multi-step Approach**    | 23.00       | 31.90     | 25.80     | 3.60     | 7.58     | 44.60                 | 56.54     | 47.00     | 5.53     | 9.38     | 49.60               | 58.85     | 55.40     | 4.17     | 7.37     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 24.80       | 38.50     | 27.00     | 1.98     | 3.99     | 51.20                 | 64.00     | 54.80     | 1.59     | 2.77     | 53.00               | 62.30     | 59.40     | 1.01     | 1.69     |
 
 ![Figure 3](article2_figures/figure3.png)
 
@@ -151,7 +151,7 @@ Figure 3: Performance on QA and query-complexity assessment of different adaptiv
 
 ### 4.2 Models
 
-We compare our Adaptive-RAG against relevant models, including three retrieval-augmented LLM strategies (in Section 3.1) and the adaptive retrieval approaches (Mallen et al., 2023; Asai et al., 2024), which can be grouped into one of three categories: Simple, Adaptive, and Complex. Specifically, Simple approaches include the 1) No Retrieval and 2) Single-step Approach-based methods. Adaptive approaches include the 3) Adaptive Retrieval (Mallen et al., 2023), 4) Self-RAG (Asai et al., 2024), and our 5) Adaptive-RAG, which can adaptively perform retrieval based on the question complexity. For the 6) Multi-step Approach, we use the most sophisticated state-of-the-art method (Trivedi et al., 2023), iteratively accessing both the retriever and LLM with Chain-of-Thought reasoning (Wei et al., 2022b), for every query. Note that models across different categories are not directly comparable. Yet, in the ideal setting, Adaptive approaches should be more effective than those in the Simple category while simultaneously being more efficient than the Complex one. Therefore, we also report the performance in an ideal scenario, 7) Adaptive-RAG w/ Oracle, using the oracle classifier with our Adaptive-RAG.
+We compare our Adaptive-RAG against relevant models, including three retrieval-augmented LLM strategies (in Section 3.1) and the adaptive retrieval approaches (Mallen et al., 2023; Asai et al., 2024), which can be grouped into one of three categories: Simple, Adaptive, and Complex. Specifically, Simple approaches include the **1) No Retrieval** and **2) Single-step Approach**-based methods. Adaptive approaches include the **3) Adaptive Retrieval** (Mallen et al., 2023), **4) Self-RAG** (Asai et al., 2024), and our **5) Adaptive-RAG**, which can adaptively perform retrieval based on the question complexity. For the **6) Multi-step Approach**, we use the most sophisticated state-of-the-art method (Trivedi et al., 2023), iteratively accessing both the retriever and LLM with Chain-of-Thought reasoning (Wei et al., 2022b), for every query. Note that models across different categories are not directly comparable. Yet, in the ideal setting, Adaptive approaches should be more effective than those in the Simple category while simultaneously being more efficient than the Complex one. Therefore, we also report the performance in an ideal scenario, **7) Adaptive-RAG w/ Oracle**, using the oracle classifier with our Adaptive-RAG.
 
 ### 4.3 Evaluation Metrics
 
@@ -181,12 +181,12 @@ While Table 1 shows the relative elapsed time for each of the three different RA
 
 Table 3: The exact elapsed time per query and the percentage of the predicted labels from the classifier over all samples.
 
-|               |                   |                |
-|---------------|-------------------|----------------|
-| Labels        | Time/Query (Sec.) | Percentage (%) |
-|  No (A)       | 0.35              | 8.60           |
-|  One (B)      | 3.08              | 53.33          |
-|  Multi (C)    | 27.18             | 38.07          |
+|                   |                       |                    |
+|-------------------|-----------------------|--------------------|
+| **Labels**        | **Time/Query (Sec.)** | **Percentage (%)** |
+|  **No (A)**       | 0.35                  | 8.60               |
+|  **One (B)**      | 3.08                  | 53.33              |
+|  **Multi (C)**    | 27.18                 | 38.07              |
 
 #### Analyses on Training Data for Classifier
 
@@ -194,13 +194,13 @@ We have shown that the classifier plays an important role in adaptive retrieval.
 
 Table 4: Results on QA and complexity classification with varying the data annotation strategies for training the classifier.
 
-|                         |       |      |                       |       |       |       |
-|-------------------------|-------|------|-----------------------|-------|-------|-------|
-|                         | QA    |      | Classifier (Accuracy) |       |       |       |
-| Training Strategies     | F1    | Step | All                   | No    | One   | Multi |
-|  Adaptive-RAG (Ours)    | 46.94 | 1084 | 54.52                 | 30.52 | 66.28 | 65.45 |
-|  w/o Binary             | 43.43 | 640  | 60.30                 | 62.19 | 65.70 | 39.55 |
-|  w/o Silver             | 48.79 | 1464 | 40.00                 | 0.00  | 53.98 | 75.91 |
+|                             |           |          |                           |           |           |           |
+|-----------------------------|-----------|----------|---------------------------|-----------|-----------|-----------|
+|                             | **QA**    |          | **Classifier (Accuracy)** |           |           |           |
+| **Training Strategies**     | **F1**    | **Step** | **All**                   | **No**    | **One**   | **Multi** |
+|  **Adaptive-RAG (Ours)**    | **46.94** | **1084** | **54.52**                 | **30.52** | **66.28** | **65.45** |
+|  **w/o Binary**             | 43.43     | 640      | 60.30                     | 62.19     | 65.70     | 39.55     |
+|  **w/o Silver**             | 48.79     | 1464     | 40.00                     | 0.00      | 53.98     | 75.91     |
 
 Table 5: Case study with GPT-3.5 (Turbo), where we represent the factual error in red and the accurate information in blue.
 
@@ -213,26 +213,26 @@ Table 5: Case study with GPT-3.5 (Turbo), where we represent the factual error i
 </colgroup>
 <tbody>
 <tr id="S5.T5.2.1.1" class="odd ltx_tr">
-<td id="S5.T5.2.1.1.1" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Dataset </td>
-<td id="S5.T5.2.1.1.2" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Question </td>
-<td id="S5.T5.2.1.1.3" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Adaptive Retrieval </td>
-<td id="S5.T5.2.1.1.4" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Adaptive-RAG (Ours) </td>
+<td id="S5.T5.2.1.1.1" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Dataset</strong> </td>
+<td id="S5.T5.2.1.1.2" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Question</strong> </td>
+<td id="S5.T5.2.1.1.3" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Adaptive Retrieval</strong> </td>
+<td id="S5.T5.2.1.1.4" class="ltx_td ltx_align_left ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Adaptive-RAG (Ours)</strong> </td>
 </tr>
 <tr id="S5.T5.2.1.2" class="even ltx_tr">
-<td id="S5.T5.2.1.2.1" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> NQ    (Single-hop) </td>
+<td id="S5.T5.2.1.2.1" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>NQ</strong>    (Single-hop) </td>
 <td id="S5.T5.2.1.2.2" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Which famous corporate logo changed to a flat colour/color sans serif font in its first major change since 1999? </td>
-<td id="S5.T5.2.1.2.3" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Query Type:  B (Single-step Approach)<br />
-Reasoning: The famous corporate logo that changed to a flat color sans-serif font in its first major change since 1999 is Microsoft. Microsoft changed its logo in 2012, replacing the italicized, multi-colored font with a simple, flat, grey font. So the answer is: Microsoft. </td>
-<td id="S5.T5.2.1.2.4" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Query Type:  A (Non Retrieval)<br />
-Reasoning: The famous corporate logo that changed to a flat color sans serif font in its first major change since 1999 is Google. Google changed its logo in 2015. So the answer is: Google. </td>
+<td id="S5.T5.2.1.2.3" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Query Type: </strong> B (Single-step Approach)<br />
+<strong>Reasoning: </strong>The famous corporate logo that changed to a flat color sans-serif font in its first major change since 1999 is Microsoft. Microsoft changed its logo in 2012, replacing the italicized, multi-colored font with a simple, flat, grey font. So the answer is: Microsoft. </td>
+<td id="S5.T5.2.1.2.4" class="ltx_td ltx_align_left ltx_border_t" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Query Type: </strong> A (Non Retrieval)<br />
+<strong>Reasoning: </strong>The famous corporate logo that changed to a flat color sans serif font in its first major change since 1999 is Google. Google changed its logo in 2015. So the answer is: Google. </td>
 </tr>
 <tr id="S5.T5.2.1.3" class="odd ltx_tr">
-<td id="S5.T5.2.1.3.1" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> MuSiQue (Multi-hop) </td>
+<td id="S5.T5.2.1.3.1" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>MuSiQue</strong> (Multi-hop) </td>
 <td id="S5.T5.2.1.3.2" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Who is the child of the Italian navigator who explored the eastern coast of the continent César Gaytan was born in for the English? </td>
-<td id="S5.T5.2.1.3.3" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Query Type:  A (Non Retrieval)<br />
-Reasoning: César Gaytan was born in the continent of North America. The Italian navigator who explored the eastern coast of North America for the English was Giovanni Caboto, also known as John Cabot. So the answer is: Giovanni Caboto/John Cabot. </td>
-<td id="S5.T5.2.1.3.4" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> Query Type:  C (Multi-step Approach)<br />
-Reasoning: Césarr Gaytan was born in Guadalajara, Jalisco, Mexico. The Italian navigator who explored the eastern coast of the continent for the English is John Cabot. John Cabot’s son is Sebastian Cabot. So the answer is: Sebastian Cabot. </td>
+<td id="S5.T5.2.1.3.3" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Query Type: </strong> A (Non Retrieval)<br />
+<strong>Reasoning: </strong>César Gaytan was born in the continent of North America. The Italian navigator who explored the eastern coast of North America for the English was Giovanni Caboto, also known as John Cabot. So the answer is: Giovanni Caboto/John Cabot. </td>
+<td id="S5.T5.2.1.3.4" class="ltx_td ltx_align_left ltx_border_bb ltx_border_tt" style="padding-top: 1.5pt; padding-bottom: 1.5pt"> <strong>Query Type: </strong> C (Multi-step Approach)<br />
+<strong>Reasoning: </strong>Césarr Gaytan was born in Guadalajara, Jalisco, Mexico. The Italian navigator who explored the eastern coast of the continent for the English is John Cabot. John Cabot’s son is Sebastian Cabot. So the answer is: Sebastian Cabot. </td>
 </tr>
 </tbody>
 </table>
@@ -247,13 +247,13 @@ We conduct a case study to qualitatively compare our Adaptive-RAG against Adapti
 
 Table 6: Results with varying model sizes for classifiers.
 
-|                  |       |      |                       |       |       |       |
-|------------------|-------|------|-----------------------|-------|-------|-------|
-|                  | QA    |      | Classifier (Accuracy) |       |       |       |
-| Sizes            | F1    | Step | All                   | No    | One   | Multi |
-|  Small (60M)     | 45.83 | 964  | 53.48                 | 26.65 | 70.62 | 53.18 |
-|  Base (223M)     | 45.97 | 983  | 53.41                 | 26.42 | 69.46 | 56.82 |
-|  Large (770M)    | 46.94 | 1084 | 54.52                 | 30.52 | 66.28 | 65.45 |
+|                      |           |          |                           |        |         |           |
+|----------------------|-----------|----------|---------------------------|--------|---------|-----------|
+|                      | **QA**    |          | **Classifier (Accuracy)** |        |         |           |
+| **Sizes**            | **F1**    | **Step** | **All**                   | **No** | **One** | **Multi** |
+|  **Small (60M)**     | 45.83     | 964      | 53.48                     | 26.65  | 70.62   | 53.18     |
+|  **Base (223M)**     | 45.97     | 983      | 53.41                     | 26.42  | 69.46   | 56.82     |
+|  **Large (770M)**    | **46.94** | **1084** | **54.52**                 | 30.52  | 66.28   | 65.45     |
 
 ## 6 Conclusion
 
@@ -329,35 +329,35 @@ Figure 4: QA performance (F1) and efficiency (Time/Query) for different retrieva
 
 We use publicly open datasets for both single-hop and multi-hop QA datasets, referring to as Karpukhin et al. (2020) and Trivedi et al. (2023), respectively. We describe the characteristics of each dataset:
 
-1\) SQuAD v1.1 (Rajpurkar et al., 2016) is created through a process where annotators write questions based on the documents they read.
+**1) SQuAD v1.1** (Rajpurkar et al., 2016) is created through a process where annotators write questions based on the documents they read.
 
-2\) Natural Questions (Kwiatkowski et al., 2019) is constructed by real user queries on Google Search.
+**2) Natural Questions** (Kwiatkowski et al., 2019) is constructed by real user queries on Google Search.
 
-3\) TriviaQA (Joshi et al., 2017) comprises trivia questions sourced from various quiz websites.
+**3) TriviaQA** (Joshi et al., 2017) comprises trivia questions sourced from various quiz websites.
 
-4\) MuSiQue (Trivedi et al., 2022a) is collected by compositing multiple single-hop queries, to form queries spanning 2-4 hops.
+**4) MuSiQue** (Trivedi et al., 2022a) is collected by compositing multiple single-hop queries, to form queries spanning 2-4 hops.
 
-5\) HotpotQA (Yang et al., 2018) is constructed by having annotators create questions that link multiple Wikipedia articles.
+**5) HotpotQA** (Yang et al., 2018) is constructed by having annotators create questions that link multiple Wikipedia articles.
 
-6\) 2WikiMultiHopQA (Ho et al., 2020) is derived from Wikipedia and its associated knowledge graph path, needing 2-hops.
+**6) 2WikiMultiHopQA** (Ho et al., 2020) is derived from Wikipedia and its associated knowledge graph path, needing 2-hops.
 
 ### A.2 Models
 
 We describe the details of models as follows:
 
-1\) No Retrieval. This approach uses only the LLM itself, to generate the answer to the given query.
+**1) No Retrieval.** This approach uses only the LLM itself, to generate the answer to the given query.
 
-2\) Single-step Approach. This approach first retrieves the relevant knowledge with the given query from the external knowledge sources and then augments the LLM with this retrieved knowledge to generate the answer, which iterates only once.
+**2) Single-step Approach.** This approach first retrieves the relevant knowledge with the given query from the external knowledge sources and then augments the LLM with this retrieved knowledge to generate the answer, which iterates only once.
 
-3\) Adaptive Retrieval. This baseline (Mallen et al., 2023) adaptively augments the LLM with the retrieval module, only when the entities appearing in queries are less popular. To extract entities, we use the available entity-linking method (Li et al., 2020), namely BLINK, for questions.
+**3) Adaptive Retrieval.** This baseline (Mallen et al., 2023) adaptively augments the LLM with the retrieval module, only when the entities appearing in queries are less popular. To extract entities, we use the available entity-linking method (Li et al., 2020), namely BLINK, for questions.
 
-4\) Self-RAG. This baseline (Asai et al., 2024) trains the LLM to adaptively perform retrieval and generation, where the retrieval is conducted once it predicts the special retrieval token above a certain threshold, and the answer generation follows.
+**4) Self-RAG.** This baseline (Asai et al., 2024) trains the LLM to adaptively perform retrieval and generation, where the retrieval is conducted once it predicts the special retrieval token above a certain threshold, and the answer generation follows.
 
-5\) Adaptive-RAG. This is our model that adaptively selects the retrieval-augmented generation strategy, smoothly oscillating between the non-retrieval, single-step approach, and multi-step approaches[^5] without architectural changes, based on the query complexity assessed by the classifier.
+**5) Adaptive-RAG.** This is our model that adaptively selects the retrieval-augmented generation strategy, smoothly oscillating between the non-retrieval, single-step approach, and multi-step approaches[^5] without architectural changes, based on the query complexity assessed by the classifier.
 
-6\) Multi-step Approach. This approach (Trivedi et al., 2023) is the multi-step retrieval-augmented LLM, which iteratively accesses both the retriever and LLM with interleaved Chain-of-Thought reasoning (Wei et al., 2022b) repeatedly until it derives the solution or reaches the maximum step number.
+**6) Multi-step Approach.** This approach (Trivedi et al., 2023) is the multi-step retrieval-augmented LLM, which iteratively accesses both the retriever and LLM with interleaved Chain-of-Thought reasoning (Wei et al., 2022b) repeatedly until it derives the solution or reaches the maximum step number.
 
-7\) Adaptive-RAG w/ Oracle This is an ideal scenario of our Adaptive-RAG equipped with an oracle classifier that perfectly categorizes the query complexity.
+**7) Adaptive-RAG w/ Oracle** This is an ideal scenario of our Adaptive-RAG equipped with an oracle classifier that perfectly categorizes the query complexity.
 
 ### A.3 Implementation Details
 
@@ -371,49 +371,49 @@ Figure 5: QA performance (F1) and efficiency (Time/Query) for different retrieva
 
 Table 7: Results on each of a collection of datasets with FLAN-T5-XXL (11B) as the LLM. We emphasize our results in bold.
 
-|                 |              |                        |         |       |       |      |      |                   |       |       |      |      |                 |       |       |      |      |
-|-----------------|--------------|------------------------|---------|-------|-------|------|------|-------------------|-------|-------|------|------|-----------------|-------|-------|------|------|
-|                 |              |                        | SQuAD   |       |       |      |      | Natural Questions |       |       |      |      | TriviaQA        |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time | EM              | F1    | Acc   | Step | Time |
-|  Single-step    |  Simple      | No Retrieval           | 7.00    | 14.40 | 8.40  | 0.00 | 0.08 | 18.80             | 25.50 | 20.40 | 0.00 | 0.08 | 32.80           | 39.20 | 35.40 | 0.00 | 0.08 |
-|                 |              | Single-step Approach   | 28.80   | 40.80 | 35.00 | 1.00 | 1.00 | 41.40             | 51.20 | 47.60 | 1.00 | 1.00 | 56.00           | 64.70 | 61.80 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 15.60   | 25.60 | 20.00 | 0.50 | 0.54 | 31.00             | 39.70 | 35.00 | 0.50 | 0.54 | 44.80           | 52.20 | 48.60 | 0.50 | 0.54 |
-|                 |              | Self-RAG<sup>∗</sup>   | 1.60    | 11.90 | 20.80 | 0.59 | 0.31 | 39.20             | 47.10 | 42.40 | 0.75 | 0.09 | 14.60           | 33.70 | 60.20 | 0.76 | 0.22 |
-|                 |              | Adaptive-RAG (Ours)    | 27.80   | 39.80 | 34.00 | 1.17 | 1.50 | 41.20             | 51.00 | 47.40 | 1.00 | 1.00 | 52.00           | 60.30 | 57.20 | 1.03 | 1.33 |
-|                 | Complex      | Multi-step Approach    | 24.60   | 36.90 | 30.20 | 2.13 | 3.83 | 39.60             | 49.60 | 46.40 | 2.16 | 3.94 | 52.60           | 61.10 | 59.40 | 2.17 | 4.03 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 32.80   | 46.90 | 38.20 | 0.85 | 0.94 | 51.20             | 61.00 | 57.00 | 0.71 | 0.91 | 63.40           | 71.30 | 68.20 | 0.51 | 0.60 |
-|                 |              |                        | MuSiQue |       |       |      |      | HotpotQA          |       |       |      |      | 2WikiMultiHopQA |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time | EM              | F1    | Acc   | Step | Time |
-|  Multi-step     |  Simple      | No Retrieval           | 4.20    | 13.40 | 5.40  | 0.00 | 0.08 | 17.40             | 25.44 | 18.40 | 0.00 | 0.09 | 26.80           | 32.93 | 28.00 | 0.00 | 0.08 |
-|                 |              | Single-step Approach   | 16.80   | 25.70 | 19.20 | 1.00 | 1.00 | 37.60             | 49.27 | 39.60 | 1.00 | 1.00 | 46.60           | 54.13 | 48.20 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 8.40    | 17.80 | 10.20 | 0.50 | 0.54 | 26.60             | 36.01 | 27.80 | 0.50 | 0.54 | 35.20           | 42.68 | 36.80 | 0.50 | 0.54 |
-|                 |              | Self-RAG<sup>∗</sup>   | 1.20    | 8.20  | 11.80 | 0.68 | 0.27 | 5.60              | 17.86 | 30.60 | 0.76 | 0.26 | 3.00            | 19.14 | 39.00 | 0.90 | 0.25 |
-|                 |              | Adaptive-RAG (Ours)    | 20.60   | 28.50 | 23.20 | 1.89 | 3.12 | 44.20             | 54.78 | 46.80 | 1.58 | 2.53 | 47.60           | 57.36 | 54.00 | 1.46 | 2.55 |
-|                 | Complex      | Multi-step Approach    | 19.40   | 27.50 | 21.80 | 2.09 | 3.66 | 47.00             | 57.81 | 49.40 | 2.08 | 3.73 | 57.60           | 67.65 | 64.00 | 2.17 | 3.63 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 24.20   | 37.20 | 26.60 | 1.22 | 1.71 | 52.20             | 64.80 | 54.60 | 0.92 | 1.33 | 59.20           | 70.40 | 68.60 | 0.82 | 1.14 |
+|                     |                  |                            |             |           |           |          |          |                       |           |           |          |          |                     |           |           |          |          |
+|---------------------|------------------|----------------------------|-------------|-----------|-----------|----------|----------|-----------------------|-----------|-----------|----------|----------|---------------------|-----------|-----------|----------|----------|
+|                     |                  |                            | **SQuAD**   |           |           |          |          | **Natural Questions** |           |           |          |          | **TriviaQA**        |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Single-step**    |  **Simple**      | **No Retrieval**           | 7.00        | 14.40     | 8.40      | 0.00     | 0.08     | 18.80                 | 25.50     | 20.40     | 0.00     | 0.08     | 32.80               | 39.20     | 35.40     | 0.00     | 0.08     |
+|                     |                  | **Single-step Approach**   | 28.80       | 40.80     | 35.00     | 1.00     | 1.00     | 41.40                 | 51.20     | 47.60     | 1.00     | 1.00     | 56.00               | 64.70     | 61.80     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 15.60       | 25.60     | 20.00     | 0.50     | 0.54     | 31.00                 | 39.70     | 35.00     | 0.50     | 0.54     | 44.80               | 52.20     | 48.60     | 0.50     | 0.54     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 1.60        | 11.90     | 20.80     | 0.59     | 0.31     | 39.20                 | 47.10     | 42.40     | 0.75     | 0.09     | 14.60               | 33.70     | 60.20     | 0.76     | 0.22     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **27.80**   | **39.80** | **34.00** | **1.17** | **1.50** | **41.20**             | **51.00** | **47.40** | **1.00** | **1.00** | **52.00**           | **60.30** | **57.20** | **1.03** | **1.33** |
+|                     | **Complex**      | **Multi-step Approach**    | 24.60       | 36.90     | 30.20     | 2.13     | 3.83     | 39.60                 | 49.60     | 46.40     | 2.16     | 3.94     | 52.60               | 61.10     | 59.40     | 2.17     | 4.03     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 32.80       | 46.90     | 38.20     | 0.85     | 0.94     | 51.20                 | 61.00     | 57.00     | 0.71     | 0.91     | 63.40               | 71.30     | 68.20     | 0.51     | 0.60     |
+|                     |                  |                            | **MuSiQue** |           |           |          |          | **HotpotQA**          |           |           |          |          | **2WikiMultiHopQA** |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Multi-step**     |  **Simple**      | **No Retrieval**           | 4.20        | 13.40     | 5.40      | 0.00     | 0.08     | 17.40                 | 25.44     | 18.40     | 0.00     | 0.09     | 26.80               | 32.93     | 28.00     | 0.00     | 0.08     |
+|                     |                  | **Single-step Approach**   | 16.80       | 25.70     | 19.20     | 1.00     | 1.00     | 37.60                 | 49.27     | 39.60     | 1.00     | 1.00     | 46.60               | 54.13     | 48.20     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 8.40        | 17.80     | 10.20     | 0.50     | 0.54     | 26.60                 | 36.01     | 27.80     | 0.50     | 0.54     | 35.20               | 42.68     | 36.80     | 0.50     | 0.54     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 1.20        | 8.20      | 11.80     | 0.68     | 0.27     | 5.60                  | 17.86     | 30.60     | 0.76     | 0.26     | 3.00                | 19.14     | 39.00     | 0.90     | 0.25     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **20.60**   | **28.50** | **23.20** | **1.89** | **3.12** | **44.20**             | **54.78** | **46.80** | **1.58** | **2.53** | **47.60**           | **57.36** | **54.00** | **1.46** | **2.55** |
+|                     | **Complex**      | **Multi-step Approach**    | 19.40       | 27.50     | 21.80     | 2.09     | 3.66     | 47.00                 | 57.81     | 49.40     | 2.08     | 3.73     | 57.60               | 67.65     | 64.00     | 2.17     | 3.63     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 24.20       | 37.20     | 26.60     | 1.22     | 1.71     | 52.20                 | 64.80     | 54.60     | 0.92     | 1.33     | 59.20               | 70.40     | 68.60     | 0.82     | 1.14     |
 
 Table 8: Results on each of a collection of datasets with GPT-3.5 (Turbo) as the LLM. We emphasize our results in bold.
 
-|                 |              |                        |         |       |       |      |      |                   |       |       |      |      |                 |       |       |      |      |
-|-----------------|--------------|------------------------|---------|-------|-------|------|------|-------------------|-------|-------|------|------|-----------------|-------|-------|------|------|
-|                 |              |                        | SQuAD   |       |       |      |      | Natural Questions |       |       |      |      | TriviaQA        |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time | EM              | F1    | Acc   | Step | Time |
-|  Single-step    |  Simple      | No Retrieval           | 16.00   | 29.20 | 23.80 | 0.00 | 0.62 | 39.80             | 55.70 | 55.00 | 0.00 | 0.56 | 64.00           | 75.60 | 75.80 | 0.00 | 0.68 |
-|                 |              | Single-step Approach   | 18.00   | 33.80 | 29.20 | 1.00 | 1.00 | 32.40             | 46.80 | 54.80 | 1.00 | 1.00 | 55.20           | 66.50 | 65.80 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 15.40   | 30.00 | 24.40 | 0.50 | 0.81 | 36.40             | 51.20 | 56.60 | 0.50 | 0.78 | 62.00           | 71.90 | 72.20 | 0.50 | 0.84 |
-|                 |              | Self-RAG<sup>∗</sup>   | 1.60    | 11.90 | 20.80 | 0.59 | 1.91 | 39.20             | 47.10 | 42.40 | 0.75 | 0.52 | 14.60           | 33.70 | 60.20 | 0.76 | 1.59 |
-|                 |              | Adaptive-RAG (Ours)    | 19.80   | 34.40 | 30.00 | 0.87 | 1.21 | 36.80             | 52.00 | 56.60 | 0.68 | 0.86 | 62.40           | 73.80 | 73.80 | 0.22 | 0.79 |
-|                 | Complex      | Multi-step Approach    | 17.40   | 31.50 | 26.20 | 2.50 | 3.24 | 35.60             | 49.70 | 57.80 | 2.58 | 3.79 | 54.80           | 67.10 | 68.00 | 2.30 | 2.65 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 28.00   | 45.90 | 39.40 | 0.54 | 0.93 | 50.00             | 65.40 | 67.00 | 0.28 | 0.8  | 70.80           | 81.00 | 80.00 | 0.11 | 0.73 |
-|                 |              |                        | MuSiQue |       |       |      |      | HotpotQA          |       |       |      |      | 2WikiMultiHopQA |       |       |      |      |
-| Data            | Types        | Methods                | EM      | F1    | Acc   | Step | Time | EM                | F1    | Acc   | Step | Time | EM              | F1    | Acc   | Step | Time |
-|  Multi-step     |  Simple      | No Retrieval           | 20.40   | 31.30 | 24.40 | 0.00 | 0.81 | 37.40             | 51.04 | 43.20 | 0.00 | 0.74 | 37.00           | 48.50 | 43.40 | 0.00 | 0.90 |
-|                 |              | Single-step Approach   | 16.40   | 26.70 | 23.60 | 1.00 | 1.00 | 39.60             | 50.44 | 45.60 | 1.00 | 1.00 | 46.80           | 57.69 | 52.60 | 1.00 | 1.00 |
-|                 |  Adaptive    | Adaptive Retrieval     | 18.80   | 30.30 | 24.80 | 0.50 | 0.90 | 38.60             | 50.70 | 43.20 | 0.50 | 0.87 | 44.20           | 55.11 | 50.60 | 0.50 | 0.95 |
-|                 |              | Self-RAG<sup>∗</sup>   | 1.20    | 8.20  | 11.80 | 0.68 | 1.66 | 5.60              | 17.86 | 30.60 | 0.76 | 1.67 | 3.00            | 19.14 | 39.00 | 0.90 | 1.81 |
-|                 |              | Adaptive-RAG (Ours)    | 21.80   | 32.60 | 29.60 | 1.90 | 2.29 | 40.40             | 52.56 | 47.00 | 0.93 | 1.48 | 46.60           | 60.09 | 56.80 | 1.59 | 2.23 |
-|                 | Complex      | Multi-step Approach    | 23.00   | 32.50 | 31.60 | 3.41 | 3.61 | 45.80             | 58.36 | 52.20 | 2.73 | 3.18 | 52.20           | 66.08 | 62.40 | 3.36 | 3.35 |
-|                 | Oracle       | Adaptive-RAG w/ Oracle | 29.60   | 44.70 | 35.60 | 0.90 | 1.45 | 55.60             | 69.90 | 62.80 | 0.54 | 1.08 | 52.20           | 69.90 | 66.60 | 0.65 | 1.21 |
+|                     |                  |                            |             |           |           |          |          |                       |           |           |          |          |                     |           |           |          |          |
+|---------------------|------------------|----------------------------|-------------|-----------|-----------|----------|----------|-----------------------|-----------|-----------|----------|----------|---------------------|-----------|-----------|----------|----------|
+|                     |                  |                            | **SQuAD**   |           |           |          |          | **Natural Questions** |           |           |          |          | **TriviaQA**        |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Single-step**    |  **Simple**      | **No Retrieval**           | 16.00       | 29.20     | 23.80     | 0.00     | 0.62     | 39.80                 | 55.70     | 55.00     | 0.00     | 0.56     | 64.00               | 75.60     | 75.80     | 0.00     | 0.68     |
+|                     |                  | **Single-step Approach**   | 18.00       | 33.80     | 29.20     | 1.00     | 1.00     | 32.40                 | 46.80     | 54.80     | 1.00     | 1.00     | 55.20               | 66.50     | 65.80     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 15.40       | 30.00     | 24.40     | 0.50     | 0.81     | 36.40                 | 51.20     | 56.60     | 0.50     | 0.78     | 62.00               | 71.90     | 72.20     | 0.50     | 0.84     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 1.60        | 11.90     | 20.80     | 0.59     | 1.91     | 39.20                 | 47.10     | 42.40     | 0.75     | 0.52     | 14.60               | 33.70     | 60.20     | 0.76     | 1.59     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **19.80**   | **34.40** | **30.00** | **0.87** | **1.21** | **36.80**             | **52.00** | **56.60** | **0.68** | **0.86** | **62.40**           | **73.80** | **73.80** | **0.22** | **0.79** |
+|                     | **Complex**      | **Multi-step Approach**    | 17.40       | 31.50     | 26.20     | 2.50     | 3.24     | 35.60                 | 49.70     | 57.80     | 2.58     | 3.79     | 54.80               | 67.10     | 68.00     | 2.30     | 2.65     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 28.00       | 45.90     | 39.40     | 0.54     | 0.93     | 50.00                 | 65.40     | 67.00     | 0.28     | 0.8      | 70.80               | 81.00     | 80.00     | 0.11     | 0.73     |
+|                     |                  |                            | **MuSiQue** |           |           |          |          | **HotpotQA**          |           |           |          |          | **2WikiMultiHopQA** |           |           |          |          |
+| **Data**            | **Types**        | **Methods**                | EM          | F1        | Acc       | Step     | Time     | EM                    | F1        | Acc       | Step     | Time     | EM                  | F1        | Acc       | Step     | Time     |
+|  **Multi-step**     |  **Simple**      | **No Retrieval**           | 20.40       | 31.30     | 24.40     | 0.00     | 0.81     | 37.40                 | 51.04     | 43.20     | 0.00     | 0.74     | 37.00               | 48.50     | 43.40     | 0.00     | 0.90     |
+|                     |                  | **Single-step Approach**   | 16.40       | 26.70     | 23.60     | 1.00     | 1.00     | 39.60                 | 50.44     | 45.60     | 1.00     | 1.00     | 46.80               | 57.69     | 52.60     | 1.00     | 1.00     |
+|                     |  **Adaptive**    | **Adaptive Retrieval**     | 18.80       | 30.30     | 24.80     | 0.50     | 0.90     | 38.60                 | 50.70     | 43.20     | 0.50     | 0.87     | 44.20               | 55.11     | 50.60     | 0.50     | 0.95     |
+|                     |                  | **Self-RAG<sup>∗</sup>**   | 1.20        | 8.20      | 11.80     | 0.68     | 1.66     | 5.60                  | 17.86     | 30.60     | 0.76     | 1.67     | 3.00                | 19.14     | 39.00     | 0.90     | 1.81     |
+|                     |                  | **Adaptive-RAG (Ours)**    | **21.80**   | **32.60** | **29.60** | **1.90** | **2.29** | **40.40**             | **52.56** | **47.00** | **0.93** | **1.48** | **46.60**           | **60.09** | **56.80** | **1.59** | **2.23** |
+|                     | **Complex**      | **Multi-step Approach**    | 23.00       | 32.50     | 31.60     | 3.41     | 3.61     | 45.80                 | 58.36     | 52.20     | 2.73     | 3.18     | 52.20               | 66.08     | 62.40     | 3.36     | 3.35     |
+|                     | **Oracle**       | **Adaptive-RAG w/ Oracle** | 29.60       | 44.70     | 35.60     | 0.90     | 1.45     | 55.60                 | 69.90     | 62.80     | 0.54     | 1.08     | 52.20               | 69.90     | 66.60     | 0.65     | 1.21     |
 
 #### Performance vs Time
 
