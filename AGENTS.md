@@ -44,7 +44,7 @@
    - Выбрана статья: Jeong et al. (2024), *Adaptive-RAG: Learning to Adapt Retrieval-Augmented Large Language Models through Question Complexity*, NAACL 2024, pp. 7036–7050 — [arXiv:2403.14403](https://arxiv.org/abs/2403.14403).
    - Оригинал: `articles/article2_original.pdf` и `.md`; основной текст — 41 571 знак без пробелов.
    - [x] Выбор профильной англоязычной статьи ($\ge 10\,000$ знаков без пробелов).
-   - [ ] Полный перевод статьи на русский язык.
+   - [x] Полный перевод статьи на русский язык (основной текст).
    - [ ] Список из не менее 30 терминов/выражений с контекстом.
    - [ ] TASK 1 (Step 1, Step 2, Step 3 a–e).
    - [ ] TASK 2 (Аннотация с клише).
