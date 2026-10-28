@@ -25,8 +25,9 @@
 - `ДолжиковДП_Англ1.md` / `.docx` — предложенная статья, выполнена полностью. Образец структуры и стиля.
 - `ДолжиковДП_Англ1_humanized.md` / `.docx` — вариант с более естественным языком в TASK 2 и TASK 3 (см. раздел «Humanized-версии»).
 - `ДолжиковДП_Англ2.md` … `ДолжиковДП_Англ4.md` — статьи по специальности №1–3, пока не созданы.
-- `articles/` — оригиналы выбранных статей (`articleN_original.pdf` и извлечённый текст `articleN_original.txt`). Каталога пока нет: создай его, когда возьмёшься за первую статью.
-- `pyproject.toml`, `uv.lock`, `.python-version` — окружение uv на Python 3.14. Единственная зависимость — `pdfplumber` для извлечения текста из PDF. `src/english/` пока заглушка.
+- `articles/` — оригиналы статей: `articleN_original.pdf` (PDF с arXiv) и `articleN_original.md` (текст, сконвертированный из HTML-версии arXiv той же версии). Переводи и цитируй по `.md`, а формулы, рисунки и номера страниц сверяй с PDF.
+- `tools/arxiv_to_md.py` и `tools/arxiv-html.lua` — конвертация HTML-версии статьи arXiv в Markdown (см. «Команды»).
+- `pyproject.toml`, `uv.lock`, `.python-version` — окружение uv на Python 3.14. Зависимость `pdfplumber` для статей в две колонки непригодна: склеивает слова и перемешивает строки колонок. `src/english/` пока заглушка.
 - `.claude/skills/avoid-ai-writing/` — сторонний скилл [conorbronsdon/avoid-ai-writing](https://github.com/conorbronsdon/avoid-ai-writing) (v3.36.0, MIT) для поиска и правки признаков AI-текста в английской прозе. Как применять — в разделе «Скилл avoid-ai-writing». Файлы скилла не редактируй; его внутренний `CLAUDE.md` предназначен для разработчиков скилла и к этому проекту не относится.
 
 Ссылки вида `file:///C:/projects/ssau/english/...` в `AGENTS.md` и `README.md` — локальные пути Windows. В новых текстах ссылайся на файлы относительными путями.
@@ -34,10 +35,11 @@
 ## Текущее состояние
 
 - Англ1 (предложенная статья): готово всё — перевод, 30 терминов, TASK 1–3, DOCX, а также humanized-версия.
-- Англ2, Англ3, Англ4: статьи выбраны, работа по ним не начата. Объём не проверен, оригиналы в `articles/` не сохранены. Полные библиографические ссылки — в `README.md`.
-  - Англ2 — Jeong et al. (2024), *Adaptive-RAG*, NAACL 2024, с. 7036–7050, [arXiv:2403.14403](https://arxiv.org/abs/2403.14403).
-  - Англ3 — Asai et al. (2024), *Self-RAG*, ICLR 2024, [arXiv:2310.11511](https://arxiv.org/abs/2310.11511).
-  - Англ4 — Yan et al. (2024), *Corrective Retrieval Augmented Generation (CRAG)*, препринт [arXiv:2401.15884](https://arxiv.org/abs/2401.15884); рецензируемая публикация не найдена.
+- Англ2, Англ3, Англ4: оригиналы сохранены в `articles/` (PDF и Markdown), объём проверен. Перевод и задания не начаты. Полные библиографические ссылки — в `README.md`. Объём указан в знаках без пробелов: основной текст до списка литературы / весь текст с приложениями.
+  - Англ2 — Jeong et al. (2024), *Adaptive-RAG*, NAACL 2024, с. 7036–7050, [arXiv:2403.14403v2](https://arxiv.org/abs/2403.14403v2): 41 556 / 67 478.
+  - Англ3 — Asai et al. (2024), *Self-RAG*, ICLR 2024, [arXiv:2310.11511v1](https://arxiv.org/abs/2310.11511v1): 38 648 / 97 741.
+  - Англ4 — Yan et al. (2024), *Corrective Retrieval Augmented Generation (CRAG)*, препринт [arXiv:2401.15884v3](https://arxiv.org/abs/2401.15884v3): 33 604 / 57 699; рецензируемая публикация не найдена.
+- Не согласовано, переводить только основной текст или вместе с приложениями: уточни у пользователя перед началом перевода.
 - В Step 1 у докладов конференций нет тома и выпуска: указывай название сборника или конференции и страницы, если они есть. Для препринта CRAG — номер arXiv и версию, по которой выполнен перевод.
 
 Когда этап готов, отметь чек-боксы в `README.md`, обнови сводку в разделе 2 файла `AGENTS.md` и этот раздел, чтобы файлы не расходились.
@@ -118,7 +120,7 @@
   N. **English Term**: русский эквивалент (*"Дословная цитата из текста статьи"*).
   ```
 - Выбирай профессиональные термины, коллокации и устойчивые академические обороты, а не общеупотребительные слова. Переводы терминов должны совпадать с теми, что использованы в переводе статьи.
-- Каждая цитата — дословный фрагмент оригинала; проверь её поиском по `articles/articleN_original.txt`.
+- Каждая цитата — дословный фрагмент оригинала; проверь её поиском по `articles/articleN_original.md`.
 - Методичка требует ещё и «отметить термины в тексте статьи». В Англ1 это никак не отражено, поэтому форму (например, выделение терминов в оригинале в `articles/`) уточни у пользователя.
 
 ### TASK 1 (на английском)
@@ -184,7 +186,7 @@
 ## Алгоритм для новой статьи (N = 2, 3, 4)
 
 1. Подбери 1–3 кандидатов и согласуй выбор с пользователем.
-2. Сохрани оригинал в `articles/articleN_original.pdf`, извлеки текст в `articles/articleN_original.txt` и проверь объём.
+2. Сохрани PDF в `articles/articleN_original.pdf`, сконвертируй статью в `articles/articleN_original.md` (для arXiv — через HTML-версию, иначе через PyMuPDF) и проверь объём.
 3. Создай `ДолжиковДП_АнглN.md` по структуре выше и выполни полный перевод.
 4. Составь словарь из 30+ терминов.
 5. Выполни TASK 1, TASK 2 и TASK 3.
@@ -194,21 +196,27 @@
 
 ## Команды
 
-Команды запускаются из корня репозитория и работают и в bash, и в PowerShell. Если uv недоступен, замени `uv run python` на `python`: pdfplumber нужен только для извлечения текста из PDF.
+Команды запускаются из корня репозитория и работают и в bash, и в PowerShell. Если uv недоступен, замени `uv run python` на `python`.
 
 Подготовить окружение (один раз):
 ```bash
 uv sync
 ```
 
-Извлечь текст из PDF:
+Сконвертировать статью arXiv в Markdown. Нужен pandoc; номер arXiv указывай с той же версией, что у PDF:
 ```bash
-uv run python -c "import sys, pdfplumber; pdf = pdfplumber.open(sys.argv[1]); open(sys.argv[2], 'w', encoding='utf-8').write('\n\n'.join(p.extract_text() or '' for p in pdf.pages))" articles/article2_original.pdf articles/article2_original.txt
+uv run python tools/arxiv_to_md.py 2403.14403v2 articles/article2_original.md
+```
+Скрипт берёт HTML-версию arXiv, которую arXiv собирает из LaTeX-исходника авторов, и оставляет только текст статьи. Формулы сохраняются в LaTeX, сноски — как сноски Markdown, таблицы с объединёнными ячейками остаются HTML-таблицами. Текст, нарисованный внутри рисунков, в Markdown не попадает: его смотри в PDF. Вместо номера можно передать сохранённую страницу `.html`.
+
+Если HTML-версии нет (статья не с arXiv или arXiv не смог её собрать), извлеки текст из PDF через PyMuPDF. У этого способа есть изъяны: на переносах строк теряются дефисы в составных словах, формулы и нижние индексы искажаются, часть таблиц склеивается. Цитаты и цифры сверяй с PDF.
+```bash
+uv run --with pymupdf python -c "import sys, pathlib, pymupdf; pathlib.Path(sys.argv[2]).write_text(pymupdf.pymupdf4llm.to_markdown(sys.argv[1]), encoding='utf-8')" articles/article2_original.pdf articles/article2_original.md
 ```
 
 Подсчитать знаки без пробелов (требуется не меньше 10 000):
 ```bash
-uv run python -c "import sys, pathlib; text = pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'); print('Chars without spaces:', len(''.join(text.split())))" articles/article2_original.txt
+uv run python -c "import sys, pathlib; text = pathlib.Path(sys.argv[1]).read_text(encoding='utf-8'); print('Chars without spaces:', len(''.join(text.split())))" articles/article2_original.md
 ```
 
 Подсчитать слова во фрагменте от маркера START до маркера END. Строки-заголовки не учитываются; без END счёт идёт до конца файла.
