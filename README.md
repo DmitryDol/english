@@ -67,8 +67,10 @@
 ---
 
 ### Блок 2. Статья по специальности №1
+> *Jeong, S., Baek, J., Cho, S., Hwang, S. J., & Park, J. C. (2024). Adaptive-RAG: Learning to adapt retrieval-augmented large language models through question complexity. In Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers), 7036–7050.* — [arXiv:2403.14403](https://arxiv.org/abs/2403.14403)
+
 - [ ] **Выбор статьи:**
-  - [ ] Подбор статьи по профилю магистратуры (Computer Science / AI / IoT / Software Engineering)
+  - [x] Подбор статьи по профилю магистратуры (Computer Science / AI / IoT / Software Engineering)
   - [ ] Проверка объема: $\ge 10\,000$ знаков без пробелов
   - [ ] Фиксация библиографической ссылки и сохранение оригинала
 - [ ] **Выполнение заданий:**
@@ -84,8 +86,10 @@
 ---
 
 ### Блок 3. Статья по специальности №2
+> *Asai, A., Wu, Z., Wang, Y., Sil, A., & Hajishirzi, H. (2024). Self-RAG: Learning to retrieve, generate, and critique through self-reflection. In The Twelfth International Conference on Learning Representations (ICLR 2024).* — [arXiv:2310.11511](https://arxiv.org/abs/2310.11511)
+
 - [ ] **Выбор статьи:**
-  - [ ] Подбор статьи по профилю магистратуры
+  - [x] Подбор статьи по профилю магистратуры
   - [ ] Проверка объема: $\ge 10\,000$ знаков без пробелов
   - [ ] Фиксация библиографической ссылки и сохранение оригинала
 - [ ] **Выполнение заданий:**
@@ -101,8 +105,10 @@
 ---
 
 ### Блок 4. Статья по специальности №3
+> *Yan, S.-Q., Gu, J.-C., Zhu, Y., & Ling, Z.-H. (2024). Corrective retrieval augmented generation. arXiv preprint arXiv:2401.15884.* — [arXiv:2401.15884](https://arxiv.org/abs/2401.15884) (препринт: рецензируемая публикация не найдена)
+
 - [ ] **Выбор статьи:**
-  - [ ] Подбор статьи по профилю магистратуры
+  - [x] Подбор статьи по профилю магистратуры
   - [ ] Проверка объема: $\ge 10\,000$ знаков без пробелов
   - [ ] Фиксация библиографической ссылки и сохранение оригинала
 - [ ] **Выполнение заданий:**
