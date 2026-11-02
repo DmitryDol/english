@@ -48,8 +48,8 @@
    - [x] Список из не менее 30 терминов/выражений с контекстом (35 терминов, выделены полужирным в `articles/article2_original.md`).
    - [x] TASK 1 (Step 1, Step 2, Step 3 a–e).
    - [x] TASK 2 (Аннотация с клише).
-   - [ ] TASK 3 (Скрипт доклада на 5–7 мин).
-   - [ ] Компиляция в `ДолжиковДП_Англ2.docx`.
+   - [x] TASK 3 (Скрипт доклада на 5–7 мин).
+   - [x] Компиляция в `ДолжиковДП_Англ2.docx`.
 
 3. **Статья по специальности №2 (`ДолжиковДП_Англ3.md`):**
    - Выбрана статья: Asai et al. (2024), *Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection*, ICLR 2024 — [arXiv:2310.11511](https://arxiv.org/abs/2310.11511).
