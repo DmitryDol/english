@@ -96,75 +96,38 @@ IoT-приложений с жесткими требованиями к зад�
 
 ### 30 слов и выражений из текста статьи
 
-1.  **Latency reduction**: снижение задержки (*"Latency reduction in IoT
-    networks through edge AI deployment"*).
-2.  **Edge AI deployment**: внедрение / развертывание искусственного
-    интеллекта на периферийных устройствах (*"through edge AI
-    deployment: A comparative study"*).
-3.  **Comparative study**: сравнительное исследование (*"A comparative
-    study"*).
-4.  **Cloud-only approach**: подход с вычислениями исключительно в
-    облаке (*"compares cloud-only, edge-only, and hybrid AI inference
-    approaches"*).
-5.  **Edge-only inference**: вывод (инференс) исключительно на
-    периферийных устройствах (*"edge-only inference using TensorFlow
-    Lite Micro"*).
-6.  **Hybrid architecture / approach**: гибридная архитектура /
-    гибридный подход (*"The hybrid approach offered a balanced
-    trade-off"*).
-7.  **Quantized model**: квантованная модель нейросети (*"with a
-    quantized MobileNetV3 model"*).
-8.  **Mean latency**: средняя задержка передачи или обработки (*"cut
-    mean latency from 187.6 ms to 23.4 ms"*).
-9.  **Balanced trade-off**: сбалансированный компромисс (*"offered a
-    balanced trade-off with 61.2 ms latency"*).
-10. **Energy consumption**: энергопотребление (*"the lowest energy
-    consumption (12.3 mJ per inference)"*).
-11. **Low-latency applications**: приложения с жесткими требованиями к
-    низкой задержке (*"edge AI's effectiveness for low-latency IoT
-    applications"*).
-12. **Energy efficiency**: энергоэффективность (*"Keywords: energy
-    efficiency"*).
-13. **Rapid proliferation**: быстрое распространение / масштабный рост
-    (*"The rapid proliferation of Internet of Things (IoT) devices"*).
-14. **Centralized cloud infrastructure**: централизованная облачная
-    инфраструктура (*"unprecedented strain on centralized cloud
-    infrastructure"*).
-15. **Continuous streams of sensor data**: непрерывные потоки данных с
-    датчиков (*"generate continuous streams of sensor data"*).
-16. **Real-time processing**: обработка в режиме реального времени
-    (*"requires real-time processing for applications"*).
-17. **Autonomous vehicles**: беспилотные (автономные) транспортные
-    средства (*"such as autonomous vehicles, industrial monitoring"*).
-18. **Cloud-centric architectures**: облачно-центричные архитектуры
-    (*"Traditional cloud-centric architectures introduce network
-    latency"*).
-19. **Time-critical workloads**: рабочие задачи, критичные ко времени
-    выполнения (*"unacceptable for time-critical workloads"*).
-20. **Data source**: источник данных (*"brings computation closer to the
-    data source"*).
-21. **Lightweight AI inference models**: легковесные (облегченные)
-    модели инференса ИИ (*"deploying lightweight AI inference models
-    directly on edge nodes"*).
-22. **End-to-end latency**: сквозная (полная) задержка (*"significantly
-    reduces end-to-end latency"*).
-23. **Controlled experiment**: контролируемый эксперимент (*"We
-    conducted a controlled experiment"*).
-24. **Testbed**: испытательный стенд / экспериментальная платформа
-    (*"using a testbed of 50 IoT nodes"*).
-25. **Offload to the cloud**: делегировать (выгружать) вычисления в
-    облако (*"complex inference was offloaded to the cloud"*).
-26. **Image classification tasks**: задачи классификации изображений
-    (*"real-time image classification tasks"*).
-27. **Statistical significance**: статистическая значимость
-    (*"Statistical significance was assessed using paired t-tests"*).
-28. **Radio transmission overhead**: накладные расходы на радиопередачу
-    данных (*"due to radio transmission overhead"*).
-29. **Full-precision counterparts**: полноточные аналоги моделей
-    (*"within 1% of their full-precision counterparts"*).
-30. **Compelling middle ground**: убедительное компромиссное
-    (промежуточное) решение (*"The hybrid configuration offers a
-    compelling middle ground"*).
+| № | Термин (English) | Русский эквивалент | Цитата из статьи |
+|-------|---------------------|--------------------------------------|--------------------------------------|
+| 1 | **Autonomous vehicles** | беспилотные (автономные) транспортные средства | *"such as autonomous vehicles, industrial monitoring"* |
+| 2 | **Balanced trade-off** | сбалансированный компромисс | *"offered a balanced trade-off with 61.2 ms latency"* |
+| 3 | **Centralized cloud infrastructure** | централизованная облачная инфраструктура | *"unprecedented strain on centralized cloud infrastructure"* |
+| 4 | **Cloud-centric architectures** | облачно-центричные архитектуры | *"Traditional cloud-centric architectures introduce network latency"* |
+| 5 | **Cloud-only approach** | подход с вычислениями исключительно в облаке | *"compares cloud-only, edge-only, and hybrid AI inference approaches"* |
+| 6 | **Comparative study** | сравнительное исследование | *"A comparative study"* |
+| 7 | **Compelling middle ground** | убедительное компромиссное (промежуточное) решение | *"The hybrid configuration offers a compelling middle ground"* |
+| 8 | **Continuous streams of sensor data** | непрерывные потоки данных с датчиков | *"generate continuous streams of sensor data"* |
+| 9 | **Controlled experiment** | контролируемый эксперимент | *"We conducted a controlled experiment"* |
+| 10 | **Data source** | источник данных | *"brings computation closer to the data source"* |
+| 11 | **Edge AI deployment** | внедрение / развертывание искусственного интеллекта на периферийных устройствах | *"through edge AI deployment: A comparative study"* |
+| 12 | **Edge-only inference** | вывод (инференс) исключительно на периферийных устройствах | *"edge-only inference using TensorFlow Lite Micro"* |
+| 13 | **End-to-end latency** | сквозная (полная) задержка | *"significantly reduces end-to-end latency"* |
+| 14 | **Energy consumption** | энергопотребление | *"the lowest energy consumption (12.3 mJ per inference)"* |
+| 15 | **Energy efficiency** | энергоэффективность | *"Keywords: energy efficiency"* |
+| 16 | **Full-precision counterparts** | полноточные аналоги моделей | *"within 1% of their full-precision counterparts"* |
+| 17 | **Hybrid architecture / approach** | гибридная архитектура / гибридный подход | *"The hybrid approach offered a balanced trade-off"* |
+| 18 | **Image classification tasks** | задачи классификации изображений | *"real-time image classification tasks"* |
+| 19 | **Latency reduction** | снижение задержки | *"Latency reduction in IoT networks through edge AI deployment"* |
+| 20 | **Lightweight AI inference models** | легковесные (облегченные) модели инференса ИИ | *"deploying lightweight AI inference models directly on edge nodes"* |
+| 21 | **Low-latency applications** | приложения с жесткими требованиями к низкой задержке | *"edge AI's effectiveness for low-latency IoT applications"* |
+| 22 | **Mean latency** | средняя задержка передачи или обработки | *"cut mean latency from 187.6 ms to 23.4 ms"* |
+| 23 | **Offload to the cloud** | делегировать (выгружать) вычисления в облако | *"complex inference was offloaded to the cloud"* |
+| 24 | **Quantized model** | квантованная модель нейросети | *"with a quantized MobileNetV3 model"* |
+| 25 | **Radio transmission overhead** | накладные расходы на радиопередачу данных | *"due to radio transmission overhead"* |
+| 26 | **Rapid proliferation** | быстрое распространение / масштабный рост | *"The rapid proliferation of Internet of Things (IoT) devices"* |
+| 27 | **Real-time processing** | обработка в режиме реального времени | *"requires real-time processing for applications"* |
+| 28 | **Statistical significance** | статистическая значимость | *"Statistical significance was assessed using paired t-tests"* |
+| 29 | **Testbed** | испытательный стенд / экспериментальная платформа | *"using a testbed of 50 IoT nodes"* |
+| 30 | **Time-critical workloads** | рабочие задачи, критичные ко времени выполнения | *"unacceptable for time-critical workloads"* |
 
 ### TASK 1
 

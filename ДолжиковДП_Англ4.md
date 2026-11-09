@@ -273,44 +273,46 @@ CRAG сравнивался главным образом с подходами 
 
 ### 30 слов и выражений из текста статьи
 
-1. **Hallucinations**: галлюцинации, т. е. генерация правдоподобных, но не соответствующих фактам сведений (*"Large language models (LLMs) inevitably exhibit hallucinations"*).
-2. **Parametric knowledge**: параметрические знания, т. е. знания, хранящиеся в параметрах модели (*"cannot be secured solely by the parametric knowledge they encapsulate"*).
-3. **Retrieval evaluator**: оценщик поиска (модуль, оценивающий релевантность извлечённых документов) (*"a lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents"*).
-4. **Confidence degree**: степень уверенности (*"returning a confidence degree based on which different knowledge retrieval actions can be triggered"*).
-5. **Large-scale web searches**: масштабный веб-поиск (*"large-scale web searches are utilized as an extension for augmenting the retrieval results"*).
-6. **Decompose-then-recompose algorithm**: алгоритм «декомпозиция — рекомпозиция» (документ разбивается на части, а релевантные части снова объединяются) (*"a decompose-then-recompose algorithm is designed for retrieved documents"*).
-7. **Plug-and-play**: подключаемый по принципу plug-and-play, т. е. встраиваемый в готовую систему без её переделки (*"CRAG is plug-and-play and can be seamlessly coupled with various RAG-based approaches"*).
-8. **Short- and long-form generation tasks**: задачи генерации коротких ответов и развёрнутых текстов (*"Experiments on four datasets covering short- and long-form generation tasks"*).
-9. **Retrieval-augmented generation**: генерация, дополненная поиском (RAG) (*"as exemplified by retrieval-augmented generation (RAG)"*).
-10. **External knowledge corpus**: внешний корпус знаний (*"retrieved from an external knowledge corpus"*).
-11. **Corrective strategies**: корректирующие стратегии (*"makes the first attempt to design corrective strategies"*).
-12. **Adaptability**: адаптируемость (применимость к разным подходам) (*"for demonstrating its adaptability to RAG-based approaches"*).
-13. **Generalizability**: обобщающая способность (*"demonstrating its generalizability across both short- and long-form generation tasks"*).
-14. **Knowledge-intensive**: требующий обширных знаний (о задачах) (*"especially in the knowledge-intensive ones"*).
-15. **Sparse or dense retrievers**: разреженные или плотные ретриверы (поиск по совпадению слов или по векторным представлениям) (*"Earlier studies adopt either sparse or dense retrievers"*).
-16. **Critic model**: модель-критик (*"introduce a critic model to decide whether to retrieve"*).
-17. **NLI model**: модель логического вывода на естественном языке (natural language inference) (*"designed an NLI model to identify the irrelevant context"*).
-18. **Low risk tolerance**: низкая устойчивость к ошибкам (*"exhibiting low risk tolerance"*).
-19. **Knowledge strips**: фрагменты знаний (небольшие части документа, обычно из нескольких предложений) (*"the retrieved documents will be refined into more precise knowledge strips"*).
-20. **Golden subject wiki title**: эталонный заголовок статьи Википедии о субъекте вопроса (*"provides the golden subject wiki title from wikipedia for each question"*).
-21. **Relevance signals**: сигналы релевантности (данные, указывающие, какой документ релевантен) (*"The relevance signals for fine-tuning the evaluator can be collected from the existing datasets"*).
-22. **Negative samples**: отрицательные примеры (*"the negative samples for fine-tuning were all randomly sampled from the retrieval results"*).
-23. **Relevance score**: оценка релевантности (*"the evaluator predicts the relevance score for each question-document pair individually"*).
-24. **Lightweight**: легковесный (с небольшим числом параметров) (*"the evaluator designed in CRAG demonstrates the advantages of being quite lightweight"*).
-25. **Upper and lower thresholds**: верхний и нижний пороги (*"triggered accordingly where the upper and lower thresholds are set"*).
-26. **Confidence score**: оценка уверенности (*"If the confidence score is higher than the upper threshold"*).
-27. **Fabricated facts**: вымышленные факты (*"which is likely to result in fabricated facts"*).
-28. **Knowledge refinement**: уточнение знаний (*"a decompose-then-recompose knowledge refinement method is designed"*).
-29. **Internal knowledge**: внутренние знания (уточнённые знания из извлечённых документов) (*"recomposed via concatenation in order, namely internal knowledge"*).
-30. **External knowledge**: внешние знания (уточнённые знания из веб-поиска) (*"to derive the relevant web knowledge, namely external knowledge"*).
-31. **Instruction-tuned LLMs**: LLM, дообученные на инструкциях (*"Here we adopted several public instruction-tuned LLMs"*).
-32. **Closed-set tasks**: задачи с закрытым набором ответов (*"and closed-set tasks (PubHealth, Arc-Challenge)"*).
-33. **Ablation tests**: абляционные тесты (эксперименты с удалением отдельных компонентов метода) (*"ablation tests for removing each single action in the proposed method were conducted"*).
-34. **Search query rewriting**: переформулирование поисковых запросов (*"removing search query rewriting denoted that questions were not rewritten"*).
-35. **Robustness**: устойчивость (*"on enhancing the robustness to retrieval performance"*).
-36. **Self-correction mechanism**: механизм самокоррекции (*"the primary improvements in our method stem from the self-correction mechanism"*).
-37. **Computational overhead**: вычислительные затраты (дополнительная вычислительная нагрузка) (*"the self-correction mechanism incurs only modest computational overhead"*).
-38. **Execution time per instance**: время выполнения на один пример (*"to assess the average execution time per instance in practice"*).
+| № | Термин (English) | Русский эквивалент | Цитата из статьи |
+|-------|---------------------|--------------------------------------|--------------------------------------|
+| 1 | **Ablation tests** | абляционные тесты (эксперименты с удалением отдельных компонентов метода) | *"ablation tests for removing each single action in the proposed method were conducted"* |
+| 2 | **Adaptability** | адаптируемость (применимость к разным подходам) | *"for demonstrating its adaptability to RAG-based approaches"* |
+| 3 | **Closed-set tasks** | задачи с закрытым набором ответов | *"and closed-set tasks (PubHealth, Arc-Challenge)"* |
+| 4 | **Computational overhead** | вычислительные затраты (дополнительная вычислительная нагрузка) | *"the self-correction mechanism incurs only modest computational overhead"* |
+| 5 | **Confidence degree** | степень уверенности | *"returning a confidence degree based on which different knowledge retrieval actions can be triggered"* |
+| 6 | **Confidence score** | оценка уверенности | *"If the confidence score is higher than the upper threshold"* |
+| 7 | **Corrective strategies** | корректирующие стратегии | *"makes the first attempt to design corrective strategies"* |
+| 8 | **Critic model** | модель-критик | *"introduce a critic model to decide whether to retrieve"* |
+| 9 | **Decompose-then-recompose algorithm** | алгоритм «декомпозиция — рекомпозиция» (документ разбивается на части, а релевантные части снова объединяются) | *"a decompose-then-recompose algorithm is designed for retrieved documents"* |
+| 10 | **Execution time per instance** | время выполнения на один пример | *"to assess the average execution time per instance in practice"* |
+| 11 | **External knowledge** | внешние знания (уточнённые знания из веб-поиска) | *"to derive the relevant web knowledge, namely external knowledge"* |
+| 12 | **External knowledge corpus** | внешний корпус знаний | *"retrieved from an external knowledge corpus"* |
+| 13 | **Fabricated facts** | вымышленные факты | *"which is likely to result in fabricated facts"* |
+| 14 | **Generalizability** | обобщающая способность | *"demonstrating its generalizability across both short- and long-form generation tasks"* |
+| 15 | **Golden subject wiki title** | эталонный заголовок статьи Википедии о субъекте вопроса | *"provides the golden subject wiki title from wikipedia for each question"* |
+| 16 | **Hallucinations** | галлюцинации, т. е. генерация правдоподобных, но не соответствующих фактам сведений | *"Large language models (LLMs) inevitably exhibit hallucinations"* |
+| 17 | **Instruction-tuned LLMs** | LLM, дообученные на инструкциях | *"Here we adopted several public instruction-tuned LLMs"* |
+| 18 | **Internal knowledge** | внутренние знания (уточнённые знания из извлечённых документов) | *"recomposed via concatenation in order, namely internal knowledge"* |
+| 19 | **Knowledge-intensive** | требующий обширных знаний (о задачах) | *"especially in the knowledge-intensive ones"* |
+| 20 | **Knowledge refinement** | уточнение знаний | *"a decompose-then-recompose knowledge refinement method is designed"* |
+| 21 | **Knowledge strips** | фрагменты знаний (небольшие части документа, обычно из нескольких предложений) | *"the retrieved documents will be refined into more precise knowledge strips"* |
+| 22 | **Large-scale web searches** | масштабный веб-поиск | *"large-scale web searches are utilized as an extension for augmenting the retrieval results"* |
+| 23 | **Lightweight** | легковесный (с небольшим числом параметров) | *"the evaluator designed in CRAG demonstrates the advantages of being quite lightweight"* |
+| 24 | **Low risk tolerance** | низкая устойчивость к ошибкам | *"exhibiting low risk tolerance"* |
+| 25 | **Negative samples** | отрицательные примеры | *"the negative samples for fine-tuning were all randomly sampled from the retrieval results"* |
+| 26 | **NLI model** | модель логического вывода на естественном языке (natural language inference) | *"designed an NLI model to identify the irrelevant context"* |
+| 27 | **Parametric knowledge** | параметрические знания, т. е. знания, хранящиеся в параметрах модели | *"cannot be secured solely by the parametric knowledge they encapsulate"* |
+| 28 | **Plug-and-play** | подключаемый по принципу plug-and-play, т. е. встраиваемый в готовую систему без её переделки | *"CRAG is plug-and-play and can be seamlessly coupled with various RAG-based approaches"* |
+| 29 | **Relevance score** | оценка релевантности | *"the evaluator predicts the relevance score for each question-document pair individually"* |
+| 30 | **Relevance signals** | сигналы релевантности (данные, указывающие, какой документ релевантен) | *"The relevance signals for fine-tuning the evaluator can be collected from the existing datasets"* |
+| 31 | **Retrieval-augmented generation** | генерация, дополненная поиском (RAG) | *"as exemplified by retrieval-augmented generation (RAG)"* |
+| 32 | **Retrieval evaluator** | оценщик поиска (модуль, оценивающий релевантность извлечённых документов) | *"a lightweight retrieval evaluator is designed to assess the overall quality of retrieved documents"* |
+| 33 | **Robustness** | устойчивость | *"on enhancing the robustness to retrieval performance"* |
+| 34 | **Search query rewriting** | переформулирование поисковых запросов | *"removing search query rewriting denoted that questions were not rewritten"* |
+| 35 | **Self-correction mechanism** | механизм самокоррекции | *"the primary improvements in our method stem from the self-correction mechanism"* |
+| 36 | **Short- and long-form generation tasks** | задачи генерации коротких ответов и развёрнутых текстов | *"Experiments on four datasets covering short- and long-form generation tasks"* |
+| 37 | **Sparse or dense retrievers** | разреженные или плотные ретриверы (поиск по совпадению слов или по векторным представлениям) | *"Earlier studies adopt either sparse or dense retrievers"* |
+| 38 | **Upper and lower thresholds** | верхний и нижний пороги | *"triggered accordingly where the upper and lower thresholds are set"* |
 
 ### TASK 1
 

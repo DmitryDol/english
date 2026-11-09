@@ -3,9 +3,10 @@
 Использование:
     uv run python tools/mark_terms.py ДолжиковДП_Англ2.md articles/article2_original.md
 
-Берёт из словаря строки вида «N. **Term**: перевод (*"цитата"*).», находит каждую
-цитату в оригинале и выделяет термин полужирным внутри неё (методичка требует
-отметить термины в тексте статьи). Повторный запуск ничего не дублирует.
+Берёт из словаря строки таблицы вида «| N | **Term** | перевод | *"цитата"* |»
+(или строки списка «N. **Term**: перевод (*"цитата"*).» старого формата), находит
+каждую цитату в оригинале и выделяет термин полужирным внутри неё (методичка
+требует отметить термины в тексте статьи). Повторный запуск ничего не дублирует.
 Если цитаты нет в оригинале дословно или в ней нет термина, скрипт сообщает
 об этом и завершается с ошибкой, ничего не меняя.
 """
@@ -14,14 +15,27 @@ import pathlib
 import re
 import sys
 
-GLOSSARY_ITEM = re.compile(r'^\d+\.\s+\*\*(?P<term>.+?)\*\*:.*\(\*"(?P<quote>.+)"\*\)\.?\s*$')
+GLOSSARY_FORMATS = (
+    re.compile(r'^\|\s*\d+\s*\|\s*\*\*(?P<term>.+?)\*\*\s*\|.*\|\s*\*"(?P<quote>.+)"\*\s*\|\s*$'),
+    re.compile(r'^\d+\.\s+\*\*(?P<term>.+?)\*\*:.*\(\*"(?P<quote>.+)"\*\)\.?\s*$'),
+)
+
+
+def glossary_items(text: str) -> list[dict]:
+    items = []
+    for line in text.splitlines():
+        for pattern in GLOSSARY_FORMATS:
+            if m := pattern.match(line):
+                items.append(m.groupdict())
+                break
+    return items
 
 
 def main() -> None:
     if len(sys.argv) != 3:
         sys.exit(__doc__)
     work_path, original_path = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
-    items = [m.groupdict() for line in work_path.read_text(encoding="utf-8").splitlines() if (m := GLOSSARY_ITEM.match(line))]
+    items = glossary_items(work_path.read_text(encoding="utf-8"))
     if not items:
         sys.exit(f"{work_path}: glossary items not found")
     text = original_path.read_text(encoding="utf-8")

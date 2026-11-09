@@ -281,43 +281,45 @@ Self-RAG и разнообразные базовые модели оценив�
 
 ### 30 слов и выражений из текста статьи
 
-1. **Retrieval-Augmented Generation**: генерация, дополненная поиском (RAG) (*"Retrieval-Augmented Generation (RAG), an ad hoc approach that augments LMs with retrieval of relevant knowledge"*).
-2. **Parametric knowledge**: параметрические знания, т. е. знания, хранящиеся в параметрах модели (*"due to their sole reliance on the parametric knowledge they encapsulate"*).
-3. **Factual inaccuracies**: фактические неточности (*"often produce responses containing factual inaccuracies"*).
-4. **Self-reflection**: саморефлексия, т. е. оценка моделью собственной генерации (*"enhances an LM’s quality and factuality through retrieval and self-reflection"*).
-5. **Reflection tokens**: токены рефлексии (*"Generating reflection tokens makes the LM controllable during the inference phase"*).
-6. **Inference phase**: этап инференса (*"makes Self-Rag controllable during the inference phase"*).
-7. **Knowledge-intensive tasks**: задачи, требующие обширных знаний (*"reducing factual errors in knowledge-intensive tasks"*).
-8. **Off-topic passages**: не относящиеся к делу (нерелевантные) фрагменты (*"introduce unnecessary or off-topic passages that lead to low-quality generations"*).
-9. **On-demand retrieval**: поиск по требованию (*"via on-demand retrieval and self-reflection"*).
-10. **Versatility**: универсальность (*"these methods may hinder the versatility of LLMs"*).
-11. **End-to-end manner**: сквозным образом (о совместном обучении всей модели целиком) (*"We train an arbitrary LM in an end-to-end manner"*).
-12. **Critique tokens**: токены критики (*"It then generates critique tokens"*).
-13. **Fact verification**: проверка фактов (*"leading to easier fact verification"*).
-14. **Next token prediction**: предсказание следующего токена (*"by unifying them as the next token prediction from the expanded model vocabulary"*).
-15. **Reward models**: модели вознаграждения (*"inspired by reward models used in reinforcement learning"*).
-16. **Reinforcement learning**: обучение с подкреплением (*"Training LLMs with reinforcement learning"*).
-17. **Critic model**: модель-критик (*"This eliminates the need to host a critic model during training"*).
-18. **Control tokens**: управляющие токены (*"studies that use control tokens to start and guide text generation"*).
-19. **Decoding algorithm**: алгоритм декодирования (*"enables a customizable decoding algorithm to satisfy hard or soft constraints"*).
-20. **Hard constraints**: жёсткие ограничения (*"enabling the use of a soft re-ranking mechanism or hard constraints at inference"*).
-21. **Segment-level beam search**: лучевой поиск на уровне сегментов (*"through segment-level beam search using the weighted linear sum"*).
-22. **Instruction-tuned LLMs**: LLM, дообученные на инструкциях (*"outperforms pre-trained and instruction-tuned LLMs that have more parameters"*).
-23. **Citation accuracy**: точность цитирования (*"widely adopted RAG approaches with higher citation accuracy"*).
-24. **Few-shot fine-tuning**: дообучение по нескольким примерам (few-shot) (*"followed by few-shot fine-tuning on task datasets"*).
-25. **Runtime efficiency**: эффективность во время работы (*"often comes at the expense of runtime efficiency"*).
-26. **Attributions**: атрибуция, т. е. указание источников сведений (*"and lack of attributions"*).
-27. **Natural language inference**: логический вывод на естественном языке (*"use a natural language inference model"*).
-28. **Human preferences**: предпочтения людей (*"aligning LLMs with human preferences"*).
-29. **Proprietary LMs**: проприетарные (закрытые) языковые модели (*"However, depending on such proprietary LMs"*).
-30. **Reproducibility**: воспроизводимость (*"can raise API costs and diminish reproducibility"*).
-31. **Distill their knowledge**: дистиллировать знания (перенести знания большой модели в меньшую) (*"then distill their knowledge into an in-house"*).
-32. **Conditional language modeling objective**: целевая функция условного языкового моделирования (*"using a standard conditional language modeling objective, maximizing likelihood"*).
-33. **Greedy decoding**: жадное декодирование (*"For a token-level generation, we use greedy decoding."*).
-34. **Zero-shot evaluations**: оценка в режиме zero-shot, т. е. без примеров решения задачи (*"we conduct zero-shot evaluations"*).
-35. **Long-tail subset**: подмножество «длинного хвоста» (редкие сущности) (*"we use the long-tail subset"*).
-36. **Citation precision and recall**: точность и полнота цитирования (*"and citation precision and recall (Gao et al., 2023) for ASQA"*).
-37. **Human evaluations**: оценка людьми (*"We conduct small human evaluations on"*).
+| № | Термин (English) | Русский эквивалент | Цитата из статьи |
+|-------|---------------------|--------------------------------------|--------------------------------------|
+| 1 | **Attributions** | атрибуция, т. е. указание источников сведений | *"and lack of attributions"* |
+| 2 | **Citation accuracy** | точность цитирования | *"widely adopted RAG approaches with higher citation accuracy"* |
+| 3 | **Citation precision and recall** | точность и полнота цитирования | *"and citation precision and recall (Gao et al., 2023) for ASQA"* |
+| 4 | **Conditional language modeling objective** | целевая функция условного языкового моделирования | *"using a standard conditional language modeling objective, maximizing likelihood"* |
+| 5 | **Control tokens** | управляющие токены | *"studies that use control tokens to start and guide text generation"* |
+| 6 | **Critic model** | модель-критик | *"This eliminates the need to host a critic model during training"* |
+| 7 | **Critique tokens** | токены критики | *"It then generates critique tokens"* |
+| 8 | **Decoding algorithm** | алгоритм декодирования | *"enables a customizable decoding algorithm to satisfy hard or soft constraints"* |
+| 9 | **Distill their knowledge** | дистиллировать знания (перенести знания большой модели в меньшую) | *"then distill their knowledge into an in-house"* |
+| 10 | **End-to-end manner** | сквозным образом (о совместном обучении всей модели целиком) | *"We train an arbitrary LM in an end-to-end manner"* |
+| 11 | **Fact verification** | проверка фактов | *"leading to easier fact verification"* |
+| 12 | **Factual inaccuracies** | фактические неточности | *"often produce responses containing factual inaccuracies"* |
+| 13 | **Few-shot fine-tuning** | дообучение по нескольким примерам (few-shot) | *"followed by few-shot fine-tuning on task datasets"* |
+| 14 | **Greedy decoding** | жадное декодирование | *"For a token-level generation, we use greedy decoding."* |
+| 15 | **Hard constraints** | жёсткие ограничения | *"enabling the use of a soft re-ranking mechanism or hard constraints at inference"* |
+| 16 | **Human evaluations** | оценка людьми | *"We conduct small human evaluations on"* |
+| 17 | **Human preferences** | предпочтения людей | *"aligning LLMs with human preferences"* |
+| 18 | **Inference phase** | этап инференса | *"makes Self-Rag controllable during the inference phase"* |
+| 19 | **Instruction-tuned LLMs** | LLM, дообученные на инструкциях | *"outperforms pre-trained and instruction-tuned LLMs that have more parameters"* |
+| 20 | **Knowledge-intensive tasks** | задачи, требующие обширных знаний | *"reducing factual errors in knowledge-intensive tasks"* |
+| 21 | **Long-tail subset** | подмножество «длинного хвоста» (редкие сущности) | *"we use the long-tail subset"* |
+| 22 | **Natural language inference** | логический вывод на естественном языке | *"use a natural language inference model"* |
+| 23 | **Next token prediction** | предсказание следующего токена | *"by unifying them as the next token prediction from the expanded model vocabulary"* |
+| 24 | **Off-topic passages** | не относящиеся к делу (нерелевантные) фрагменты | *"introduce unnecessary or off-topic passages that lead to low-quality generations"* |
+| 25 | **On-demand retrieval** | поиск по требованию | *"via on-demand retrieval and self-reflection"* |
+| 26 | **Parametric knowledge** | параметрические знания, т. е. знания, хранящиеся в параметрах модели | *"due to their sole reliance on the parametric knowledge they encapsulate"* |
+| 27 | **Proprietary LMs** | проприетарные (закрытые) языковые модели | *"However, depending on such proprietary LMs"* |
+| 28 | **Reflection tokens** | токены рефлексии | *"Generating reflection tokens makes the LM controllable during the inference phase"* |
+| 29 | **Reinforcement learning** | обучение с подкреплением | *"Training LLMs with reinforcement learning"* |
+| 30 | **Reproducibility** | воспроизводимость | *"can raise API costs and diminish reproducibility"* |
+| 31 | **Retrieval-Augmented Generation** | генерация, дополненная поиском (RAG) | *"Retrieval-Augmented Generation (RAG), an ad hoc approach that augments LMs with retrieval of relevant knowledge"* |
+| 32 | **Reward models** | модели вознаграждения | *"inspired by reward models used in reinforcement learning"* |
+| 33 | **Runtime efficiency** | эффективность во время работы | *"often comes at the expense of runtime efficiency"* |
+| 34 | **Segment-level beam search** | лучевой поиск на уровне сегментов | *"through segment-level beam search using the weighted linear sum"* |
+| 35 | **Self-reflection** | саморефлексия, т. е. оценка моделью собственной генерации | *"enhances an LM’s quality and factuality through retrieval and self-reflection"* |
+| 36 | **Versatility** | универсальность | *"these methods may hinder the versatility of LLMs"* |
+| 37 | **Zero-shot evaluations** | оценка в режиме zero-shot, т. е. без примеров решения задачи | *"we conduct zero-shot evaluations"* |
 
 ### TASK 1
 
