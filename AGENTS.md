@@ -51,7 +51,7 @@
    - [x] TASK 3 (Скрипт доклада на 5–7 мин).
    - [x] Компиляция в `ДолжиковДП_Англ2.docx`.
    - [x] План презентации по слайдам (`ДолжиковДП_Англ2_slides.md`).
-   - [x] Humanized-версия TASK 2 и TASK 3 (`ДолжиковДП_Англ2_humanized.md` / `.docx`).
+   - [x] Humanized-версия TASK 2 и TASK 3 (`ДолжиковДП_Англ2_humanized.md` / `.docx`) и план слайдов к ней (`ДолжиковДП_Англ2_humanized_slides.md`).
 
 3. **Статья по специальности №2 (`ДолжиковДП_Англ3.md`):**
    - Выбрана статья: Asai et al. (2024), *Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection*, ICLR 2024 — [arXiv:2310.11511](https://arxiv.org/abs/2310.11511).
