@@ -213,7 +213,7 @@ Image files to attach (from `articles/article4_figures/` in the repository): `fi
 **On-slide text:**
 
 - Same web search results for the baselines: small gain (PopQA, SelfRAG-LLaMA2-7b: RAG with web search 53.8, CRAG 59.8)
-- Removing any action or refinement step lowers accuracy
+- Removing any action or knowledge step (refinement, query rewriting, selection) lowers accuracy
 - Example: Self-CRAG with LLaMA2-hf-7b without knowledge selection: 49.0 → 24.9 on PopQA
 
 **Image:** none.
@@ -222,7 +222,7 @@ Image files to attach (from `articles/article4_figures/` in the repository): `fi
 
 **Speaker notes:**
 
-> The authors also checked where the gain comes from. When they simply gave standard RAG and Self-RAG the same web search results, the improvement was small. Removing any of the three actions, or any step of knowledge refinement, lowered the accuracy.
+> The authors also checked where the gain comes from. When they simply gave standard RAG and Self-RAG the same web search results, the improvement was small. Removing any of the three actions, or any step of knowledge processing, lowered the accuracy.
 
 ## Slide 12. Robustness and Cost
 
